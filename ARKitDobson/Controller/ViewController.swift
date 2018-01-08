@@ -5,13 +5,15 @@
 import UIKit
 import SceneKit
 import ARKit
-//MARK: VC
 class ViewController: UIViewController, ARSCNViewDelegate {
 	//outlets
     @IBOutlet var sceneView: ARSCNView!
 	//globals
 	let configuration = ARWorldTrackingConfiguration()
 	let tapGestureRecognizer = UITapGestureRecognizer()
+	let box = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
+	let mat = SCNMaterial()
+	let boxNode = SCNNode()
 	let scene = SCNScene()
 	//life cycle
 	override func viewDidLoad() {
@@ -20,12 +22,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.delegate = self
 		// Show statistics such as fps and timing information
 		sceneView.showsStatistics = true
-		sceneView.autoenablesDefaultLighting = true
-		let box1 = addBox(position: SCNVector3(0, 0, -0.5), color: UIColor.purple, size: 0.2)
+		//form box with /mterial/dimensions/position
+		boxNode.position = SCNVector3(0, 0, -0.5)
+		boxNode.geometry = box
+		mat.diffuse.contents = UIColor.purple
+		box.firstMaterial = mat
 		//add boxNode to scene
-		scene.rootNode.addChildNode(box1)
-		print(box1)
-		scene.rootNode.addChildNode(addBox(position: SCNVector3(0, 0, -0.2), color: UIColor.blue, size: 0.3))
+		scene.rootNode.addChildNode(boxNode)
 		//give target to gesture recognizer and call tapped func to move box
 		tapGestureRecognizer.addTarget(self, action: #selector(tapped))
 		sceneView.addGestureRecognizer(tapGestureRecognizer)
@@ -39,55 +42,38 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	}
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
+		//pause session
 		sceneView.session.pause()
 	}
 //MARK: helper funcs
-	//add a new box to scene
-	func addBox(position: SCNVector3, color: UIColor, size: CGFloat) -> SCNNode {
-		let box = SCNBox(width: size, height: size, length: size, chamferRadius: size*0)
-		let mat = SCNMaterial()
-		let boxNode = SCNNode()
-		//form box with /mterial/dimensions/position
-		boxNode.position = position
-		boxNode.geometry = box
-		mat.diffuse.contents = color
-		box.firstMaterial = mat
-		//add box
-		return boxNode
-	}
 	@objc func tapped(recognizer: UITapGestureRecognizer) {
+		//get location of touch from user
 		let touchLocation = recognizer.location(in: sceneView)
-		//get SCNHitTestResults [ ]
+		//get hitTestResults
 		let hitResult = sceneView.hitTest(touchLocation, options: nil)
-		//is box tapped?
-		if hitResult.isEmpty { //box is not tapped
+		//if box touched, move box
+		if hitResult.isEmpty { //alert user to touch box?
 			print("pressed inside SELF.SCENEVIEW")
-		} else { //box is tapped
-			//usig "if let" to make cleaner and eliminate the need for adding a bang to each value of newPosition --> "node!.position.x/y/z"
-			if let node = hitResult.first?.node {
-				//tap to create new red box
-				let newPosition = SCNVector3(node.position.x - 0.1, node.position.y - 0.2, node.position.z - 0.05)
-				scene.rootNode.addChildNode(addBox(position: newPosition, color: UIColor.red, size: 0.1))
-			}
-			//boxNode.runAction(SCNAction.rotateBy(x: 1, y: 1, z: .pi * 2, duration: 4))
-			// below is an alternate spin method that runs forever \\
-			//			boxNode.pivot = SCNMatrix4MakeRotation(.pi / 2, 1, 0, 0)
-			//			let spin = CABasicAnimation(keyPath: "rotation")
-			//			spin.fromValue = NSValue(scnVector4: SCNVector4(0, 0, 1, 0))
-			//			spin.toValue = NSValue(scnVector4: SCNVector4(0, 0, 1, 6.28))
-			//			spin.duration = 3
-			//			spin.repeatCount = .infinity
-			//			boxNode.addAnimation(spin, forKey: "spin around")
+		} else { //move box
+			boxNode.runAction(SCNAction.rotateBy(x: 1, y: 1, z: .pi * 2, duration: 4))
+		// below is an alternate spin method that runs forever \\
+//			boxNode.pivot = SCNMatrix4MakeRotation(.pi / 2, 1, 0, 0)
+//			let spin = CABasicAnimation(keyPath: "rotation")
+//			spin.fromValue = NSValue(scnVector4: SCNVector4(0, 0, 1, 0))
+//			spin.toValue = NSValue(scnVector4: SCNVector4(0, 0, 1, 6.28))
+//			spin.duration = 3
+//			spin.repeatCount = .infinity
+//			boxNode.addAnimation(spin, forKey: "spin around")
 		}
 	}
 // MARK: - ARSCNViewDelegate
-/*
+	/*
 	// Override to create and configure nodes for anchors added to the view's session.
 	func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
 	let node = SCNNode()
 	return node
 	}
-*/
+	*/
 	func session(_ session: ARSession, didFailWithError error: Error) {
 		// Present an error message to the user
 	}
