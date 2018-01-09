@@ -11,7 +11,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	//globals
 	let configuration = ARWorldTrackingConfiguration()
 	let panGestureRecognizer = UIPanGestureRecognizer()
-	let pinchGestureRecognizer = UIPinchGestureRecognizer()
+	//let pinchGestureRecognizer = UIPinchGestureRecognizer()
 	let box = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
 	let mat = SCNMaterial()
 	let boxNode = SCNNode()
@@ -67,8 +67,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 			if let dragNode = scnHitResults.first?.node {
 				let position = SCNVector3(result.worldTransform.columns.3.x,
 										  result.worldTransform.columns.3.y,
-										  result.worldTransform.columns.3.z)
-//										  dragNode.position.z)
+//										  result.worldTransform.columns.3.z)
+										  dragNode.position.z)
 				dragNode.position = position
 			}
 		}
