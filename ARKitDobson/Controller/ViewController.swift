@@ -9,20 +9,42 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	//outlets
     @IBOutlet var sceneView: ARSCNView!
 	//globals
-	let configuration = ARWorldTrackingConfiguration()
+	private let label: UILabel = UILabel()
+	var numOfPlanes = 0
 	//life cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		//set sceneView's frame
+		self.sceneView = ARSCNView(frame: self.view.frame)
+		//setup label properties
+		self.label.frame = CGRect(x: 0,
+								  y: 0,
+								  width: self.sceneView.frame.size.width,
+								  height: 44)
+		self.label.center = self.sceneView.center
+		self.label.textAlignment = .center
+		self.label.textColor = UIColor.white
+		self.label.font = UIFont.preferredFont(forTextStyle: .headline)
+		self.label.alpha = 0
+		//add label to sceneView as subview
+		self.sceneView.addSubview(self.label)
+		//add debugging option for sceneView (show x, y , z coords)
+		self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+		//add subview to scene
+		self.view.addSubview(self.sceneView)
 		// Set the view's delegate
 		sceneView.delegate = self
-		// Show statistics such as fps and timing information
+		//show statistics such as fps and timing information
 		sceneView.showsStatistics = true
-		//form box with /mterial/dimensions/position
-		sceneView.debugOptions = ARSCNDebugOptions.showWorldOrigin
-		sceneView.debugOptions = ARSCNDebugOptions.showFeaturePoints
+		//create new scene
+		let scene = SCNScene()
+		//set scene to view
+		sceneView.scene = scene
 	}
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+		let configuration = ARWorldTrackingConfiguration()
+		configuration.planeDetection = .horizontal
 		//track objects in ARWorld and start session
 		sceneView.session.run(configuration)
 	}
@@ -32,7 +54,22 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.session.pause()
 	}
 //MARK: helper funcs
-	
+	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+		if !(anchor is ARPlaneAnchor) {
+			return
+		}
+		numOfPlanes += 1
+		
+		DispatchQueue.main.async {
+			self.label.text = "\(self.numOfPlanes) plane detected"
+			print("\(self.numOfPlanes) plane detected")
+			UIView.animate(withDuration: 3.0, animations: {
+				self.label.alpha = 1.0
+			}) { (completion: Bool) in
+				self.label.alpha = 0.0
+			}
+		}
+	}
 // MARK: - ARSCNViewDelegate
 	/*
 	// Override to create and configure nodes for anchors added to the view's session.
