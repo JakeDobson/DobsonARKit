@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7C506E872005113300865A6B /* transportation.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7C506E852005113200865A6B /* transportation.dae */; };
-		7C506E882005113300865A6B /* Jet_BaseColor.png.001.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C506E862005113200865A6B /* Jet_BaseColor.png.001.png */; };
+		7C506E882005113300865A6B /* Jet_BaseColor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C506E862005113200865A6B /* Jet_BaseColor.png */; };
 		7C6D755E2005093700034A76 /* tesla.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7C6D755D2005093700034A76 /* tesla.dae */; };
 		7CC1DA2B2002E0E1002AC1F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC1DA2A2002E0E1002AC1F2 /* AppDelegate.swift */; };
 		7CC1DA2F2002E0E1002AC1F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC1DA2E2002E0E1002AC1F2 /* ViewController.swift */; };
@@ -21,7 +21,7 @@
 
 /* Begin PBXFileReference section */
 		7C506E852005113200865A6B /* transportation.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = transportation.dae; sourceTree = "<group>"; };
-		7C506E862005113200865A6B /* Jet_BaseColor.png.001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Jet_BaseColor.png.001.png; sourceTree = "<group>"; };
+		7C506E862005113200865A6B /* Jet_BaseColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Jet_BaseColor.png; sourceTree = "<group>"; };
 		7C6D755D2005093700034A76 /* tesla.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = tesla.dae; sourceTree = "<group>"; };
 		7CC1DA272002E0E1002AC1F2 /* ARKitDobson.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitDobson.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CC1DA2A2002E0E1002AC1F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 			children = (
 				7CC6730D2003AF3C0003F26A /* art.scnassets */,
 				7CC1DA332002E0E1002AC1F2 /* Assets.xcassets */,
-				7C506E862005113200865A6B /* Jet_BaseColor.png.001.png */,
+				7C506E862005113200865A6B /* Jet_BaseColor.png */,
 				7C506E852005113200865A6B /* transportation.dae */,
 				7C6D755D2005093700034A76 /* tesla.dae */,
 				7CC1DA442002E22A002AC1F2 /* Default-568h@2x.png */,
@@ -180,7 +180,7 @@
 			files = (
 				7C6D755E2005093700034A76 /* tesla.dae in Resources */,
 				7CC1DA372002E0E1002AC1F2 /* LaunchScreen.storyboard in Resources */,
-				7C506E882005113300865A6B /* Jet_BaseColor.png.001.png in Resources */,
+				7C506E882005113300865A6B /* Jet_BaseColor.png in Resources */,
 				7C506E872005113300865A6B /* transportation.dae in Resources */,
 				7CC1DA342002E0E1002AC1F2 /* Assets.xcassets in Resources */,
 				7CC6730E2003AF3C0003F26A /* art.scnassets in Resources */,

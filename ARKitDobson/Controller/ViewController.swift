@@ -19,11 +19,25 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.showsStatistics = true
 		//enable lighting
 		sceneView.autoenablesDefaultLighting = true
-		//shows little dots on objects track in AR world
-		sceneView.debugOptions = ARSCNDebugOptions.showWorldOrigin
-		sceneView.debugOptions = ARSCNDebugOptions.showFeaturePoints
+		//shows little dots on objects/planes while tracking AR world
+//		sceneView.debugOptions = ARSCNDebugOptions.showWorldOrigin
+//		sceneView.debugOptions = ARSCNDebugOptions.showFeaturePoints
 		//add car model scene
-		let scene = SCNScene(named: "tesla.dae")!
+		let modelScene = SCNScene(named: "transportation.dae")
+		let carNode = modelScene?.rootNode.childNode(withName: "tesla", recursively: true)
+		let jetNode = modelScene?.rootNode.childNode(withName: "jet", recursively: true)
+		let firetruckNode = modelScene?.rootNode.childNode(withName: "firetruck", recursively: true)
+		//empty scene
+		let scene = SCNScene()
+		//position nodes
+		carNode?.position = SCNVector3(0, 0, -0.5)
+		jetNode?.position = SCNVector3(0.5, 0, -0.5)
+		firetruckNode?.position = SCNVector3(-0.5, 0, -0.5)
+		//add nodes to scene
+		scene.rootNode.addChildNode(carNode!)
+		scene.rootNode.addChildNode(jetNode!)
+		scene.rootNode.addChildNode(firetruckNode!)
+		
 		sceneView.scene = scene
 	}
 	override func viewWillAppear(_ animated: Bool) {
