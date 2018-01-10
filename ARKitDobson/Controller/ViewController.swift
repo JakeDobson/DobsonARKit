@@ -10,24 +10,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
 	//globals
 	private let label: UILabel = UILabel()
-	var numOfPlanes = 0
+	var numOfPlanes: Int = 0
 	//life cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		//set sceneView's frame
 		self.sceneView = ARSCNView(frame: self.view.frame)
-		//setup label properties
-		self.label.frame = CGRect(x: 0,
-								  y: 0,
-								  width: self.sceneView.frame.size.width,
-								  height: 44)
-		self.label.center = self.sceneView.center
-		self.label.textAlignment = .center
-		self.label.textColor = UIColor.white
-		self.label.font = UIFont.preferredFont(forTextStyle: .headline)
-		self.label.alpha = 0
-		//add label to sceneView as subview
-		self.sceneView.addSubview(self.label)
+		//label properties
+		setupAlertLabel()
 		//add debugging option for sceneView (show x, y , z coords)
 		self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
 		//add subview to scene
@@ -54,15 +44,31 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.session.pause()
 	}
 //MARK: helper funcs
+	func setupAlertLabel() {
+		//setup label properties
+		self.label.frame = CGRect(x: 0,
+								  y: 0,
+								  width: sceneView.frame.size.width,
+								  height: 44)
+		self.label.center = CGPoint(x: label.frame.width/2 + 16, y: label.frame.height/2 + 16)
+		self.label.textAlignment = .left
+		self.label.textColor = UIColor.white
+		self.label.font = UIFont.boldSystemFont(ofSize: 36)
+		self.label.alpha = 0
+		//add label to sceneView as subview
+		self.sceneView.addSubview(self.label)
+	}
+// MARK: - ARSCNViewDelegate
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+		//if no anchor found, don't render anything!
 		if !(anchor is ARPlaneAnchor) {
 			return
 		}
 		numOfPlanes += 1
-		
+		//present label as alert for total number  of planes detected off the main thread
 		DispatchQueue.main.async {
-			self.label.text = "\(self.numOfPlanes) plane detected"
-			print("\(self.numOfPlanes) plane detected")
+			self.label.text = "\(self.numOfPlanes) plane(s) detected"
+			print("\(self.numOfPlanes) plane(s) detected")
 			UIView.animate(withDuration: 3.0, animations: {
 				self.label.alpha = 1.0
 			}) { (completion: Bool) in
@@ -70,14 +76,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 			}
 		}
 	}
-// MARK: - ARSCNViewDelegate
-	/*
-	// Override to create and configure nodes for anchors added to the view's session.
-	func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-	let node = SCNNode()
-	return node
-	}
-	*/
 	func session(_ session: ARSession, didFailWithError error: Error) {
 		// Present an error message to the user
 	}
