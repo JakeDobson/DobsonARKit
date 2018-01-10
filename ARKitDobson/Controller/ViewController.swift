@@ -64,6 +64,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		if !(anchor is ARPlaneAnchor) {
 			return
 		}
+		//every time plane is detected, increase numOfPlanes counter by 1
 		numOfPlanes += 1
 		//present label as alert for total number  of planes detected off the main thread
 		DispatchQueue.main.async {
