@@ -60,6 +60,26 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		//add label to sceneView as subview
 		self.sceneView.addSubview(self.label)
 	}
+	@objc func tapped(recognizer: UIGestureRecognizer) {
+		let scnView = recognizer.view as! ARSCNView
+		let touchLocation = recognizer.location(in: scnView)
+		let hitTestResult = scnView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
+		
+		if !hitTestResult.isEmpty {
+			guard hitTestResult.first != nil else { return }
+		}
+	}
+	
+	private func addVirtualObject(hitResult: ARHitTestResult) {
+		let carScene = SCNScene(named: "regularOldCar.dae")!
+		
+		guard let carNode = carScene.rootNode.childNode(withName: "car", recursively: true) else { return }
+		
+		carNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
+									  hitResult.worldTransform.columns.3.y + 0.2,
+									  hitResult.worldTransform.columns.3.z)
+		self.sceneView.scene.rootNode.addChildNode(carNode)
+	}
 // MARK: - ARSCNViewDelegate
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
 		//if no anchor found, don't render anything!
