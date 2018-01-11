@@ -18,7 +18,7 @@ class Plane: SCNNode {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError('Plane init failed')
+        fatalError("Plane init failed")
     }
     
     private func setup() {

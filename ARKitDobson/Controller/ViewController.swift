@@ -9,8 +9,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	//outlets
     @IBOutlet var sceneView: ARSCNView!
 	//globals
-	private let label: UILabel = UILabel()
 	var numOfPlanes: Int = 0
+	var planes = [Plane]()
+	//constants
+	private let label: UILabel = UILabel()
 	//life cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -75,6 +77,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 			}) { (completion: Bool) in
 				self.label.alpha = 0.0
 			}
+			//add plane to scene
+			let plane = Plane(anchor: anchor as! ARPlaneAnchor)
+			self.planes.append(plane)
+			node.addChildNode(plane)
 		}
 	}
 	func session(_ session: ARSession, didFailWithError error: Error) {
