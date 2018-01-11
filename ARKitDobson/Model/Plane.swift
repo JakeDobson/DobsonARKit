@@ -7,5 +7,33 @@ import ARKit
 import SceneKit
 //subclass Plane
 class Plane: SCNNode {
-	//TODO: finish subclass with Josh
+    var anchor :ARPlaneAnchor!
+    private var planeGeometry :SCNPlane!
+    
+    init(anchor :ARPlaneAnchor) {
+        
+        self.anchor = anchor
+        super.init()
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError('Plane init failed')
+    }
+    
+    private func setup() {
+        self.planeGeometry = SCNPlane(width: CGFloat(self.anchor.extent.x), height: CGFloat(self.anchor.extent.z))
+        
+        let material = SCNMaterial()
+        material.diffuse.contents = UIImage(named: "tronGrid.png")
+        
+        self.planeGeometry.firstMaterial = material
+        
+        let planeNode = SCNNode(geometry: self.planeGeometry)
+        
+        planeNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z);
+        
+        self.addChildNode(planeNode)
+    }
+    
 }
