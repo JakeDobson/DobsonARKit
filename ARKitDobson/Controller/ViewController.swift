@@ -93,7 +93,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             return
         }
         
-        plane?.update(anchor :anchor as! ARPlaneAnchor)
+        plane?.update(anchor: anchor as! ARPlaneAnchor)
     }
     
 	func session(_ session: ARSession, didFailWithError error: Error) {
