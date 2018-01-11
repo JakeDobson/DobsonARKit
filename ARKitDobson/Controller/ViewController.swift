@@ -32,6 +32,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		let scene = SCNScene()
 		//set scene to view
 		sceneView.scene = scene
+		//setup recognizer to add car to scene
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+		sceneView.addGestureRecognizer(tapGestureRecognizer)
 	}
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -64,19 +67,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		let scnView = recognizer.view as! ARSCNView
 		let touchLocation = recognizer.location(in: scnView)
 		let hitTestResult = scnView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
-		
+		//if touched on a plane, add object at location of touch
 		if !hitTestResult.isEmpty {
-			guard hitTestResult.first != nil else { return }
+			guard let hitResult = hitTestResult.first else { return }
+			addVirtualObject(hitResult: hitResult)
 		}
 	}
 	
 	private func addVirtualObject(hitResult: ARHitTestResult) {
 		let carScene = SCNScene(named: "regularOldCar.dae")!
-		
 		guard let carNode = carScene.rootNode.childNode(withName: "car", recursively: true) else { return }
-		
 		carNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
-									  hitResult.worldTransform.columns.3.y + 0.2,
+									  hitResult.worldTransform.columns.3.y + 0.025,
 									  hitResult.worldTransform.columns.3.z)
 		self.sceneView.scene.rootNode.addChildNode(carNode)
 	}
@@ -88,8 +90,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		}
 		//every time plane is detected, increase numOfPlanes counter by 1
 		numOfPlanes += 1
-		//present label as alert for total number  of planes detected off the main thread
 		DispatchQueue.main.async {
+			//present label as alert for total number  of planes detected off the main thread
 			self.label.text = "\(self.numOfPlanes) plane(s) detected"
 			print("\(self.numOfPlanes) plane(s) detected")
 			UIView.animate(withDuration: 3.0, animations: {
@@ -105,14 +107,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	}
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+		//if plane found with anchor, upaate(which will merge each plane, increasing plane's surface)
         let plane = self.planes.filter {
             plane in return plane.anchor.identifier == anchor.identifier
         }.first
-        
         if plane == nil {
             return
         }
-        
         plane?.update(anchor: anchor as! ARPlaneAnchor)
     }
     
