@@ -83,6 +83,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 			node.addChildNode(plane)
 		}
 	}
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        let plane = self.planes.filter {
+            plane in return plane.anchor.identifier == anchor.identifier
+        }.first
+        
+        if plane == nil {
+            return
+        }
+        
+        plane?.update(anchor :anchor as! ARPlaneAnchor)
+    }
+    
 	func session(_ session: ARSession, didFailWithError error: Error) {
 		// Present an error message to the user
 	}

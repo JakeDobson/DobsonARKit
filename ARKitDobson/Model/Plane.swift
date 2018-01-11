@@ -31,9 +31,17 @@ class Plane: SCNNode {
         
         let planeNode = SCNNode(geometry: self.planeGeometry)
         
-        planeNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z);
+        planeNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
+        
+        planeNode.transform = SCNMatrix4MakeRotation(Float(-Double.pi / 2.0), 1.0, 0.0, 0.0)
         
         self.addChildNode(planeNode)
+    }
+    
+    func update(anchor :ARPlaneAnchor) {
+        self.planeGeometry.width = CGFloat(anchor.extent.x)
+        self.planeGeometry.height = CGFloat(anchor.extent.z)
+        self.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
     }
     
 }
