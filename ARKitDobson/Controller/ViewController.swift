@@ -5,11 +5,15 @@
 import UIKit
 import SceneKit
 import ARKit
+//enum for category bit mask of physics bodies
+enum BodyType: Int {
+	case box = 1
+	case plane = 2
+}
 class ViewController: UIViewController, ARSCNViewDelegate {
 	//outlets
     @IBOutlet var sceneView: ARSCNView!
 	//globals
-	var numOfPlanes: Int = 0
 	var planes = [Plane]()
 	//constants
 	private let label: UILabel = UILabel()
@@ -34,18 +38,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
 		sceneView.addGestureRecognizer(tapGestureRecognizer)
 	}
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		let configuration = ARWorldTrackingConfiguration()
-		configuration.planeDetection = .horizontal
-		//track objects in ARWorld and start session
-		sceneView.session.run(configuration)
-	}
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		//pause session
-		sceneView.session.pause()
-	}
 //MARK: helper funcs
 	@objc func tapped(recognizer: UIGestureRecognizer) {
 		let scnView = recognizer.view as! ARSCNView
@@ -64,11 +56,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	private func addScooter(hitResult: ARHitTestResult) {
 		if let scooterNode = nodeForScene(sceneName: "scooter.dae", nodeName: "scooter") {
 			scooterNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+			scooterNode.physicsBody?.categoryBitMask = BodyType.box.rawValue
 			scooterNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
-											  hitResult.worldTransform.columns.3.y,
+											  hitResult.worldTransform.columns.3.y + 0.5,
 											  hitResult.worldTransform.columns.3.z)
-			sceneView.scene.rootNode.addChildNode(scooterNode)
+			self.sceneView.scene.rootNode.addChildNode(scooterNode)
 		}
+	}
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		let configuration = ARWorldTrackingConfiguration()
+		configuration.planeDetection = .horizontal
+		//track objects in ARWorld and start session
+		sceneView.session.run(configuration)
 	}
 // MARK: - ARSCNViewDelegate
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -94,14 +94,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         plane?.update(anchor: anchor as! ARPlaneAnchor)
     }
-    
-	func session(_ session: ARSession, didFailWithError error: Error) {
-		// Present an error message to the user
-	}
-	func sessionWasInterrupted(_ session: ARSession) {
-		// Inform the user that the session has been interrupted, for example, by presenting an overlay
-	}
-	func sessionInterruptionEnded(_ session: ARSession) {
-		// Reset tracking and/or remove existing anchors if consistent tracking is required
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		//pause session
+		sceneView.session.pause()
 	}
 }

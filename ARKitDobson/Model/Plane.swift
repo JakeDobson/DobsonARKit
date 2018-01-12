@@ -30,7 +30,8 @@ class Plane: SCNNode {
         self.planeGeometry.firstMaterial = material
         //plane geometry and physics
         let planeNode = SCNNode(geometry: self.planeGeometry)
-		planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: self.planeGeometry, options: [:]))
+		planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: self.planeGeometry, options: nil))
+		planeNode.physicsBody?.categoryBitMask = BodyType.plane.rawValue
         planeNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
         planeNode.transform = SCNMatrix4MakeRotation(Float(-Double.pi / 2.0), 1.0, 0.0, 0.0)
 		//add plane node
@@ -42,7 +43,7 @@ class Plane: SCNNode {
         self.planeGeometry.height = CGFloat(anchor.extent.z)
         self.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
 		let planeNode = self.childNodes.first!
-		planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: self.planeGeometry, options: [:]))
+		planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: self.planeGeometry, options: nil))
     }
     
 }
