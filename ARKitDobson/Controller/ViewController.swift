@@ -71,6 +71,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		}
 	}
 // MARK: - ARSCNViewDelegate
+	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+		//if no anchor found, don't render anything!
+		if !(anchor is ARPlaneAnchor) {
+			return
+		}
+		DispatchQueue.main.async {
+			//add plane to scene
+			let plane = Plane(anchor: anchor as! ARPlaneAnchor)
+			self.planes.append(plane)
+			node.addChildNode(plane)
+		}
+	}
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         let plane = self.planes.filter {
             plane in return plane.anchor.identifier == anchor.identifier
