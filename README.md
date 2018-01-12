@@ -2,7 +2,7 @@
 The Dobson brothers jamming out some ARKit applications as side projects.
 <BR>
 <BR>
-This version adds a sphere to the scene and allows the user to drag it around the AR world
+This version adds a box to the scene and allows the user to drag it around the AR world
 <BR>
 <BR>
 <BR>
