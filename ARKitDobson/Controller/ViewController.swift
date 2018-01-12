@@ -7,7 +7,7 @@ import SceneKit
 import ARKit
 //enum for category bit mask of physics bodies
 enum BodyType: Int {
-	case box = 1
+	case scooter = 1
 	case plane = 2
 }
 class ViewController: UIViewController, ARSCNViewDelegate {
@@ -15,8 +15,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
 	//globals
 	var planes = [Plane]()
-	//constants
-	private let label: UILabel = UILabel()
+	var scooters = [SCNNode]()
 	//life cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -56,7 +55,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	private func addScooter(hitResult: ARHitTestResult) {
 		if let scooterNode = nodeForScene(sceneName: "scooter.dae", nodeName: "scooter") {
 			scooterNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-			scooterNode.physicsBody?.categoryBitMask = BodyType.box.rawValue
+			//scooterNode.physicsBody?.categoryBitMask = BodyType.scooter.rawValue
 			scooterNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
 											  hitResult.worldTransform.columns.3.y + 0.5,
 											  hitResult.worldTransform.columns.3.z)
@@ -76,12 +75,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		if !(anchor is ARPlaneAnchor) {
 			return
 		}
-		DispatchQueue.main.async {
-			//add plane to scene
-			let plane = Plane(anchor: anchor as! ARPlaneAnchor)
-			self.planes.append(plane)
-			node.addChildNode(plane)
-		}
+		let plane = Plane(anchor: anchor as! ARPlaneAnchor)
+		self.planes.append(plane)
+		node.addChildNode(plane)
 	}
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         let plane = self.planes.filter {
