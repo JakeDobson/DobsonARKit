@@ -20,12 +20,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		self.sceneView = ARSCNView(frame: self.view.frame)
 		//add debugging option for sceneView (show x, y , z coords)
 		self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
-		//setuo scooter node
-		let scooterScene = SCNScene(named: "scooter.dae")!
-		guard let scooterNode = scooterScene.rootNode.childNode(withName: "scooter", recursively: true) else { return }
-		scooterNode.position = SCNVector3(0, 0, -0.5)
-		//add physics body to scooter node
-		scooterNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
 		//add subview to scene
 		self.view.addSubview(self.sceneView)
 		// Set the view's delegate
@@ -34,10 +28,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.showsStatistics = true
 		//create new scene
 		let scene = SCNScene()
-		//add scooterNode to scene
-		scene.rootNode.addChildNode(scooterNode)
 		//set scene to view
 		sceneView.scene = scene
+		//setup recognizer to add scooter to scene
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+		sceneView.addGestureRecognizer(tapGestureRecognizer)
 	}
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -52,6 +47,29 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.session.pause()
 	}
 //MARK: helper funcs
+	@objc func tapped(recognizer: UIGestureRecognizer) {
+		let scnView = recognizer.view as! ARSCNView
+		let touchLocation = recognizer.location(in: scnView)
+		let hitTestResult = scnView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
+		//if touched on a plane, add object at location of touch
+		if !hitTestResult.isEmpty {
+			guard let hitResult = hitTestResult.first else { return }
+			addScooter(hitResult: hitResult)
+		}
+	}
+	private func nodeForScene(sceneName: String, nodeName: String) -> SCNNode? {
+		let scn = SCNScene(named: sceneName)!
+		return scn.rootNode.childNode(withName: nodeName, recursively: true)
+	}
+	private func addScooter(hitResult: ARHitTestResult) {
+		if let scooterNode = nodeForScene(sceneName: "scooter.dae", nodeName: "scooter") {
+			scooterNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+			scooterNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
+											  hitResult.worldTransform.columns.3.y,
+											  hitResult.worldTransform.columns.3.z)
+			sceneView.scene.rootNode.addChildNode(scooterNode)
+		}
+	}
 // MARK: - ARSCNViewDelegate
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         let plane = self.planes.filter {
