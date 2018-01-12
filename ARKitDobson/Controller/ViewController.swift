@@ -20,6 +20,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		self.sceneView = ARSCNView(frame: self.view.frame)
 		//add debugging option for sceneView (show x, y , z coords)
 		self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+		//setuo scooter node
+		let scooterScene = SCNScene(named: "scooter.dae")!
+		guard let scooterNode = scooterScene.rootNode.childNode(withName: "scooter", recursively: true) else { return }
+		scooterNode.position = SCNVector3(0, 0, -0.5)
+		//add physics body to scooter node
+		scooterNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
 		//add subview to scene
 		self.view.addSubview(self.sceneView)
 		// Set the view's delegate
@@ -28,6 +34,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.showsStatistics = true
 		//create new scene
 		let scene = SCNScene()
+		//add scooterNode to scene
+		scene.rootNode.addChildNode(scooterNode)
 		//set scene to view
 		sceneView.scene = scene
 	}
