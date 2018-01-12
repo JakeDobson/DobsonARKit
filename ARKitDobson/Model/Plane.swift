@@ -22,19 +22,18 @@ class Plane: SCNNode {
     }
     
     private func setup() {
+		//plane dimensions
         self.planeGeometry = SCNPlane(width: CGFloat(self.anchor.extent.x), height: CGFloat(self.anchor.extent.z))
-        
+        //plane material
         let material = SCNMaterial()
         material.diffuse.contents = UIImage(named: "tronGrid.png")
-        
         self.planeGeometry.firstMaterial = material
-        
+        //plane geometry and physics
         let planeNode = SCNNode(geometry: self.planeGeometry)
-        
+		planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: self.planeGeometry, options: [:]))
         planeNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
-        
         planeNode.transform = SCNMatrix4MakeRotation(Float(-Double.pi / 2.0), 1.0, 0.0, 0.0)
-        
+		//add plane node
         self.addChildNode(planeNode)
     }
     
@@ -42,6 +41,8 @@ class Plane: SCNNode {
         self.planeGeometry.width = CGFloat(anchor.extent.x)
         self.planeGeometry.height = CGFloat(anchor.extent.z)
         self.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
+		let planeNode = self.childNodes.first!
+		planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: SCNPhysicsShape(geometry: self.planeGeometry, options: [:]))
     }
     
 }
