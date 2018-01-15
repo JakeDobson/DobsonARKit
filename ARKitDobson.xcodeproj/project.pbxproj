@@ -15,9 +15,9 @@
 		7CC1DA342002E0E1002AC1F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CC1DA332002E0E1002AC1F2 /* Assets.xcassets */; };
 		7CC1DA372002E0E1002AC1F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CC1DA352002E0E1002AC1F2 /* LaunchScreen.storyboard */; };
 		7CC1DA452002E22A002AC1F2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CC1DA442002E22A002AC1F2 /* Default-568h@2x.png */; };
-		7CC403012008F90100D1C647 /* scooter.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7CC402FF2008F90000D1C647 /* scooter.dae */; };
-		7CC403022008F90100D1C647 /* scooterSurface_Color.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CC403002008F90000D1C647 /* scooterSurface_Color.png */; };
 		7CC673122003E01A0003F26A /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CC673112003E01A0003F26A /* art.scnassets */; };
+		EBE2DC08200CF53D00875F09 /* scooterSurface_Color.png in Resources */ = {isa = PBXBuildFile; fileRef = EBE2DC06200CF53C00875F09 /* scooterSurface_Color.png */; };
+		EBE2DC09200CF53D00875F09 /* scooter.dae in Resources */ = {isa = PBXBuildFile; fileRef = EBE2DC07200CF53D00875F09 /* scooter.dae */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,9 +31,9 @@
 		7CC1DA362002E0E1002AC1F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7CC1DA382002E0E1002AC1F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CC1DA442002E22A002AC1F2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		7CC402FF2008F90000D1C647 /* scooter.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = scooter.dae; sourceTree = "<group>"; };
-		7CC403002008F90000D1C647 /* scooterSurface_Color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scooterSurface_Color.png; sourceTree = "<group>"; };
 		7CC673112003E01A0003F26A /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		EBE2DC06200CF53C00875F09 /* scooterSurface_Color.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scooterSurface_Color.png; sourceTree = "<group>"; };
+		EBE2DC07200CF53D00875F09 /* scooter.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = scooter.dae; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,9 +98,9 @@
 				7CC673112003E01A0003F26A /* art.scnassets */,
 				7CC1DA332002E0E1002AC1F2 /* Assets.xcassets */,
 				7CC1DA442002E22A002AC1F2 /* Default-568h@2x.png */,
+				EBE2DC07200CF53D00875F09 /* scooter.dae */,
+				EBE2DC06200CF53C00875F09 /* scooterSurface_Color.png */,
 				7C67C93A20065F5800F38066 /* tronGrid.png */,
-				7CC402FF2008F90000D1C647 /* scooter.dae */,
-				7CC403002008F90000D1C647 /* scooterSurface_Color.png */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -190,13 +190,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CC1DA372002E0E1002AC1F2 /* LaunchScreen.storyboard in Resources */,
-				7CC403022008F90100D1C647 /* scooterSurface_Color.png in Resources */,
+				EBE2DC08200CF53D00875F09 /* scooterSurface_Color.png in Resources */,
+				EBE2DC09200CF53D00875F09 /* scooter.dae in Resources */,
 				7CC1DA342002E0E1002AC1F2 /* Assets.xcassets in Resources */,
 				7CC673122003E01A0003F26A /* art.scnassets in Resources */,
 				7CC1DA452002E22A002AC1F2 /* Default-568h@2x.png in Resources */,
 				7C67C93B20065F5800F38066 /* tronGrid.png in Resources */,
 				7CC1DA322002E0E1002AC1F2 /* Main.storyboard in Resources */,
-				7CC403012008F90100D1C647 /* scooter.dae in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
