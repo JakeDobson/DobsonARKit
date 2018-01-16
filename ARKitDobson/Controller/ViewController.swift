@@ -35,6 +35,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		let scene = SCNScene()
 		//set scene to view
 		sceneView.scene = scene
+        addTaxi()
 		//setup recognizer to add scooter to scene
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
 		sceneView.addGestureRecognizer(tapGestureRecognizer)
@@ -74,6 +75,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 			self.sceneView.scene.rootNode.addChildNode(scooterNode)
 		}
 	}
+    
+    private func addTaxi() {
+        if let taxiNode = nodeForScene(sceneName: "taxi.dae", nodeName: "taxi")
+        
+        taxiNode.position = SCNVector3(0,0,-0.8)
+        taxiNode.physicsBody(type: .static, shape: nil)
+        self.sceneView.scene.rootNode.addChildNode(taxiNode);
+    }
+    
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		let configuration = ARWorldTrackingConfiguration()
