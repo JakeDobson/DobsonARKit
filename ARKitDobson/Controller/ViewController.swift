@@ -6,9 +6,9 @@ import UIKit
 import SceneKit
 import ARKit
 //enum for category bit mask of physics bodies
-enum BodyType: Int {
-	case scooter = 1
-	case plane = 2
+enum ScooterStatus {
+	case added
+	case notAdded
 }
 class ViewController: UIViewController, ARSCNViewDelegate {
 	//outlets
@@ -41,16 +41,37 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.addGestureRecognizer(tapGestureRecognizer)
 	}
 //MARK: helper funcs
+    private var scooterStatus :ScooterStatus = .notAdded
+    
 	@objc func tapped(recognizer: UIGestureRecognizer) {
 		let scnView = recognizer.view as! ARSCNView
 		let touchLocation = recognizer.location(in: scnView)
-		let hitTestResult = scnView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
-		//if touched on a plane, add object at location of touch
-		if !hitTestResult.isEmpty {
-			guard let hitResult = hitTestResult.first else { return }
-			addScooter(hitResult: hitResult)
-		}
+        
+        switch(self.scooterStatus) {
+            case .notAdded:
+                let hitResults = sceneView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
+                if !hitResults.isEmpty {
+                    guard let hitResult = hitResults.first else { return }
+                    addScooter(hitResult: hitResult)
+                }
+            
+                self.scooterStatus = .added
+            
+            case .added:
+                let hitResults = sceneView.hitTest(touchLocation, options: nil)
+            
+                if !hitResults.isEmpty {
+                    guard let hitResult = hitResults.first else { return }
+            
+                    let scooterNode = hitResult.node
+            
+                    // apply force to scooter node
+                    let force = SCNVector3(0,0,0.5)
+                    scooterNode.physicsBody?.applyForce(force, asImpulse: true)
+                }
+        }
 	}
+        
 	private func nodeForScene(sceneName: String, nodeName: String) -> SCNNode? {
 		let scn = SCNScene(named: sceneName)!
 		return scn.rootNode.childNode(withName: nodeName, recursively: true)
@@ -78,10 +99,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     private func addTaxi() {
 		if let taxiNode = nodeForScene(sceneName: "taxi.dae", nodeName: "taxi") {
-        
-        taxiNode.position = SCNVector3(0,0,-0.8)
-        taxiNode.physicsBody(type: .static, shape: nil)
-        self.sceneView.scene.rootNode.addChildNode(taxiNode);
+            taxiNode.position = SCNVector3(0,0,-0.8)
+            taxiNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+            self.sceneView.scene.rootNode.addChildNode(taxiNode);
+        }
     }
     
 	override func viewWillAppear(_ animated: Bool) {
