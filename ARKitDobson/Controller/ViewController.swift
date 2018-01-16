@@ -23,6 +23,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		self.sceneView = ARSCNView(frame: self.view.frame)
 		//add debugging option for sceneView (show x, y , z coords)
 		self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+		//give lighting to the scene
+		self.sceneView.autoenablesDefaultLighting = true
 		//add subview to scene
 		self.view.addSubview(self.sceneView)
 		// Set the view's delegate
@@ -53,11 +55,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		return scn.rootNode.childNode(withName: nodeName, recursively: true)
 	}
 	private func addScooter(hitResult: ARHitTestResult) {
+		let yOffset = 0.3
 		if let scooterNode = nodeForScene(sceneName: "scooter.dae", nodeName: "scooter") {
-			scooterNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+			//scooterNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
 			//scooterNode.physicsBody?.categoryBitMask = BodyType.scooter.rawValue
+			let size = scooterNode.boundingBox.max
+			//create scooter geometry
+			let scooterGeometry = SCNBox(width: CGFloat(size.x),
+										 height: CGFloat(size.y/2),
+										 length: CGFloat(size.z),
+										 chamferRadius: 0)
+			let scooterShape = SCNPhysicsShape(geometry: scooterGeometry, options: nil)
+			//adding physics body
+			scooterNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: scooterShape)
 			scooterNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
-											  hitResult.worldTransform.columns.3.y + 0.5,
+											  hitResult.worldTransform.columns.3.y + Float(yOffset),
 											  hitResult.worldTransform.columns.3.z)
 			self.sceneView.scene.rootNode.addChildNode(scooterNode)
 		}

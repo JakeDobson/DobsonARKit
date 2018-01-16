@@ -213,6 +213,7 @@ xcuserdata/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
+*.pbxproj
 
 ## Obj-C/Swift specific
 *.hmap
