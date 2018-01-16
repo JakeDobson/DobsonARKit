@@ -77,7 +77,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	}
     
     private func addTaxi() {
-        if let taxiNode = nodeForScene(sceneName: "taxi.dae", nodeName: "taxi")
+		if let taxiNode = nodeForScene(sceneName: "taxi.dae", nodeName: "taxi") {
         
         taxiNode.position = SCNVector3(0,0,-0.8)
         taxiNode.physicsBody(type: .static, shape: nil)
