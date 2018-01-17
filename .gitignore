@@ -218,6 +218,7 @@ xcuserdata/
 !*.xcodeproj/xcshareddata/ 
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
+*.pbxproj
 
 ## Obj-C/Swift specific
 *.hmap

@@ -1,7 +1,7 @@
-//  AppDelegate.swift
-//  ARKitDobson
-//  Created by Jacob Dobson on 1/7/18.
-//  Copyright © 2018 Jacob Dobson. All rights reserved.
+//AppDelegate.swift
+//ARKitDobson
+//Created by Jacob Dobson on 1/7/18.
+//Copyright © 2018 Jacob Dobson. All rights reserved.
 import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

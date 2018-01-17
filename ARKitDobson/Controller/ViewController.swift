@@ -1,21 +1,25 @@
-//  ViewController.swift
-//  ARKitDobson
-//  Created by Jacob Dobson on 1/7/18.
-//  Copyright © 2018 Jacob Dobson. All rights reserved.
+//ViewController.swift
+//ARKitDobson
+//Created by Jacob Dobson on 1/7/18.
+//Copyright © 2018 Jacob Dobson. All rights reserved.
 import UIKit
 import SceneKit
 import ARKit
-//enum for category bit mask of physics bodies
-enum ScooterStatus {
+enum BoxStatus {
 	case added
 	case notAdded
+}
+//enum for category bit mask of physics bodies
+enum BodyType: Int {
+	case box = 1
+	case plane = 2
 }
 class ViewController: UIViewController, ARSCNViewDelegate {
 	//outlets
     @IBOutlet var sceneView: ARSCNView!
 	//globals
 	var planes = [Plane]()
-	var scooters = [SCNNode]()
+	var boxes = [SCNNode]()
 	//life cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -35,76 +39,60 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		let scene = SCNScene()
 		//set scene to view
 		sceneView.scene = scene
-        addTaxi()
 		//setup recognizer to add scooter to scene
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
 		sceneView.addGestureRecognizer(tapGestureRecognizer)
 	}
 //MARK: helper funcs
-    private var scooterStatus :ScooterStatus = .notAdded
+    private var boxStatus: BoxStatus = .notAdded
     
 	@objc func tapped(recognizer: UIGestureRecognizer) {
 		let scnView = recognizer.view as! ARSCNView
 		let touchLocation = recognizer.location(in: scnView)
-        
-        switch(self.scooterStatus) {
-            case .notAdded:
-                let hitResults = sceneView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
-                if !hitResults.isEmpty {
-                    guard let hitResult = hitResults.first else { return }
-                    addScooter(hitResult: hitResult)
-                }
-            
-                self.scooterStatus = .added
-            
-            case .added:
-                let hitResults = sceneView.hitTest(touchLocation, options: nil)
-            
-                if !hitResults.isEmpty {
-                    guard let hitResult = hitResults.first else { return }
-            
-                    let scooterNode = hitResult.node
-            
-                    // apply force to scooter node
-                    let force = SCNVector3(0,0,0.5)
-                    scooterNode.physicsBody?.applyForce(force, asImpulse: true)
-                }
-        }
-	}
-        
-	private func nodeForScene(sceneName: String, nodeName: String) -> SCNNode? {
-		let scn = SCNScene(named: sceneName)!
-		return scn.rootNode.childNode(withName: nodeName, recursively: true)
-	}
-	private func addScooter(hitResult: ARHitTestResult) {
-		let yOffset = 0.3
-		if let scooterNode = nodeForScene(sceneName: "scooter.dae", nodeName: "scooter") {
-			//scooterNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-			//scooterNode.physicsBody?.categoryBitMask = BodyType.scooter.rawValue
-			let size = scooterNode.boundingBox.max
-			//create scooter geometry
-			let scooterGeometry = SCNBox(width: CGFloat(size.x),
-										 height: CGFloat(size.y/2),
-										 length: CGFloat(size.z),
-										 chamferRadius: 0)
-			let scooterShape = SCNPhysicsShape(geometry: scooterGeometry, options: nil)
-			//adding physics body
-			scooterNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: scooterShape)
-			scooterNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
-											  hitResult.worldTransform.columns.3.y + Float(yOffset),
-											  hitResult.worldTransform.columns.3.z)
-			self.sceneView.scene.rootNode.addChildNode(scooterNode)
+		let touch = scnView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
+		//take action if user touches box
+		if !touch.isEmpty {
+			guard let hitResult = touch.first else { return }
+			addBox(hitResult: hitResult)
 		}
 	}
+        
+//	private func nodeForScene(sceneName: String, nodeName: String) -> SCNNode? {
+//		let scn = SCNScene(named: sceneName)!
+//		return scn.rootNode.childNode(withName: nodeName, recursively: true)
+//	}
+
+	private func addBox(hitResult: ARHitTestResult) {
+		let boxGeometry = SCNBox(width: 0.2,
+									 height: 0.2,
+									 length: 0.1,
+									 chamferRadius: 0)
+		let material = SCNMaterial()
+		material.diffuse.contents = UIColor(red: .random(),
+											green: .random(),
+											blue: .random(),
+											alpha: 1.0)
+		boxGeometry.materials = [material]
+		let boxNode = SCNNode(geometry: boxGeometry)
+		//adding physics body, a box already has a shape, so nil is fine
+		boxNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+		//set bitMask on boxNode, enabling objects with diff categoryBitMasks to collide w/ each other
+		boxNode.physicsBody?.categoryBitMask = BodyType.box.rawValue
+		boxNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
+										  hitResult.worldTransform.columns.3.y + 0.3,
+										  hitResult.worldTransform.columns.3.z)
+			self.sceneView.scene.rootNode.addChildNode(boxNode)
+//		}
+	}
     
-    private func addTaxi() {
-		if let taxiNode = nodeForScene(sceneName: "taxi.dae", nodeName: "taxi") {
-            taxiNode.position = SCNVector3(0,0,-0.8)
-            taxiNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-            self.sceneView.scene.rootNode.addChildNode(taxiNode);
-        }
-    }
-    
+//    private func addTaxi() {
+//		if let taxiNode = nodeForScene(sceneName: "taxi.dae", nodeName: "taxi") {
+//            taxiNode.position = SCNVector3(0,0,-0.8)
+//            taxiNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+//            self.sceneView.scene.rootNode.addChildNode(taxiNode);
+//        }
+//    }
+	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		let configuration = ARWorldTrackingConfiguration()
@@ -139,3 +127,34 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.session.pause()
 	}
 }
+
+
+/*
+
+Tapped() code for applying force when objects not alike collide
+
+switch(self.boxStatus) {
+case .notAdded:
+let hitResults = sceneView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
+if !hitResults.isEmpty {
+guard let hitResult = hitResults.first else { return }
+addBox(hitResult: hitResult)
+}
+
+self.boxStatus = .added
+
+case .added:
+let hitResults = sceneView.hitTest(touchLocation, options: nil)
+
+if !hitResults.isEmpty {
+guard let hitResult = hitResults.first else { return }
+
+let boxNode = hitResult.node
+
+// apply force to scooter node
+let force = SCNVector3(0,0,0.5)
+boxNode.physicsBody?.applyForce(force, asImpulse: true)
+}
+}
+
+*/
