@@ -44,7 +44,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.addGestureRecognizer(tapGestureRecognizer)
 	}
 //MARK: helper funcs
-    private var boxStatus: BoxStatus = .notAdded
+    //private var boxStatus: BoxStatus = .notAdded
     
 	@objc func tapped(recognizer: UIGestureRecognizer) {
 		let scnView = recognizer.view as! ARSCNView
@@ -63,8 +63,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 //	}
 
 	private func addBox(hitResult: ARHitTestResult) {
-		let boxGeometry = SCNBox(width: 0.2,
-									 height: 0.2,
+		let boxGeometry = SCNBox(width: 0.1,
+									 height: 0.1,
 									 length: 0.1,
 									 chamferRadius: 0)
 		let material = SCNMaterial()
@@ -106,9 +106,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		if !(anchor is ARPlaneAnchor) {
 			return
 		}
-		let plane = Plane(anchor: anchor as! ARPlaneAnchor)
-		self.planes.append(plane)
-		node.addChildNode(plane)
+		DispatchQueue.main.async {
+			//add plane to scene
+			let plane = Plane(anchor: anchor as! ARPlaneAnchor)
+			self.planes.append(plane)
+			node.addChildNode(plane)
+			//add initial scene object
+			let pyramidGeometry = SCNPyramid(width: CGFloat(plane.planeGeometry.width / 8), height: plane.planeGeometry.height / 8, length: plane.planeGeometry.height / 8)
+			pyramidGeometry.firstMaterial?.diffuse.contents = UIColor.white
+			let pyramidNode = SCNNode(geometry: pyramidGeometry)
+			pyramidNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+			pyramidNode.position = SCNVector3(-(plane.planeGeometry.width) / 3, 0, plane.planeGeometry.height / 3)
+			node.addChildNode(pyramidNode)
+		}
 	}
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         let plane = self.planes.filter {
