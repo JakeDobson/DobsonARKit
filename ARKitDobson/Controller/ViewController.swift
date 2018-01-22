@@ -68,9 +68,9 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
 		//adding physics body, a box already has a shape, so nil is fine
 		boxNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
 		//set bitMask on boxNode, enabling objects with diff categoryBitMasks to collide w/ each other
-		boxNode.physicsBody?.categoryBitMask = BodyType.plane.rawValue | BodyType.box.rawValue
+		boxNode.physicsBody?.categoryBitMask = BodyType.box.rawValue
 		boxNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
-									  hitResult.worldTransform.columns.3.y + 0.3,
+									  hitResult.worldTransform.columns.3.y + 0.1,
 									  hitResult.worldTransform.columns.3.z)
 		self.sceneView.scene.rootNode.addChildNode(boxNode)
 	}
@@ -98,7 +98,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDele
 			let pyramidNode = SCNNode(geometry: pyramidGeometry)
 			pyramidNode.name = "pyramid"
 			pyramidNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-			pyramidNode.physicsBody?.categoryBitMask = BodyType.pyramid.rawValue | BodyType.plane.rawValue
+			pyramidNode.physicsBody?.categoryBitMask = BodyType.pyramid.rawValue
 			pyramidNode.physicsBody?.contactTestBitMask = BodyType.box.rawValue
 			pyramidNode.position = SCNVector3(-(plane.planeGeometry.width) / 3, 0, plane.planeGeometry.height / 3)
 			node.addChildNode(pyramidNode)
