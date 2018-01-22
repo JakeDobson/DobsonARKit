@@ -19,14 +19,30 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		// Show statistics such as fps and timing information
 		sceneView.showsStatistics = true
 		//form box with /mterial/dimensions/position
-		let boxNode = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
+		let scene = SCNScene()
+		let box1 = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
+		let material = SCNMaterial()
+		material.diffuse.contents = UIColor.red
+		box1.materials = [material]
+		let boxNode1 = SCNNode(geometry: box1)
+		let boxNode2 = SCNNode(geometry: box1)
+		let boxNode3 = SCNNode(geometry: box1)
+		boxNode1.position = SCNVector3(0, 0, -0.4)
+		boxNode2.position = SCNVector3(-0.2, 0, -0.4)
+		boxNode3.position = SCNVector3(0.2, 0.2, -0.5)
 		//add boxNode to scene
-		scene.rootNode.addChildNode(boxNode)
-		//give target to gesture recognizer and call tapped func to move box
-		tapGestureRecognizer.addTarget(self, action: #selector(tapped))
-		sceneView.addGestureRecognizer(tapGestureRecognizer)
+		scene.rootNode.addChildNode(boxNode1)
+		scene.rootNode.addChildNode(boxNode2)
+		scene.rootNode.addChildNode(boxNode3)
+		//register gestures
+		registerGestureRecognizers()
 		// Set the scene to the view
 		sceneView.scene = scene
+	}
+	//gesture func setup
+	private func registerGestureRecognizers() {
+		tapGestureRecognizer.addTarget(self, action: #selector(shoot))
+		sceneView.addGestureRecognizer(tapGestureRecognizer)
 	}
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -39,11 +55,23 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.session.pause()
 	}
 //MARK: helper funcs
-	@objc func tapped(recognizer: UITapGestureRecognizer) {
-		//get location of touch from user
-		let touchLocation = recognizer.location(in: sceneView)
-		//get hitTestResults
-		let hitResult = sceneView.hitTest(touchLocation, options: nil)
+	@objc func shoot(recognizer: UITapGestureRecognizer) {
+		guard let currentFrame = self.sceneView.session.currentFrame else {
+			return
+		}
+		var translation = matrix_identity_float4x4
+		translation.columns.3.z = -0.3
+		let box = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0)
+		let material = SCNMaterial()
+		material.diffuse.contents = UIColor.yellow
+		box.firstMaterial = material
+		let boxNode = SCNNode(geometry: box)
+		boxNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+		boxNode.physicsBody?.isAffectedByGravity = false
+		boxNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
+		let forceVector = SCNVector3(boxNode.worldFront.x * 2, boxNode.worldFront.y * 2, boxNode.worldFront.z * 2)
+		boxNode.physicsBody?.applyForce(forceVector, asImpulse: true)
+		self.sceneView.scene.rootNode.addChildNode(boxNode)
 	}
 // MARK: - ARSCNViewDelegate
 	/*
