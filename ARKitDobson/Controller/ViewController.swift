@@ -70,7 +70,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 let centerPoint = SCNVector3((firstPoint.position.x+secondPoint.position.x)/2,
                                              (firstPoint.position.y+secondPoint.position.y)/2,
                                              (firstPoint.position.z+secondPoint.position.z)/2)
+                
                 display(distance: result, position: centerPoint)
+                self.spheres.removeAll()
                 
             }
             
@@ -82,6 +84,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         textGeo.firstMaterial?.diffuse.contents = UIColor.black
         let textNode = SCNNode(geometry: textGeo)
         textNode.position = position
+        textNode.rotation = SCNVector4(1, 0, 0, -Float.pi / 2)
         textNode.scale = SCNVector3(0.002, 0.002, 0.002)
         self.sceneView.scene.rootNode.addChildNode(textNode)
     }
