@@ -9,7 +9,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	//outlets
     @IBOutlet var sceneView: ARSCNView!
 	//globals
-	let configuration = ARWorldTrackingConfiguration()
+	
 	let tapGestureRecognizer = UITapGestureRecognizer()
 
 	//life cycle
@@ -35,7 +35,28 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @objc func tapped(recognizer: UITapGestureRecognizer) {
-        print("tapped")
+        
+        let scnView = recognizer.view as! ARSCNView
+        let touchLocation = self.sceneView.center
+        
+        let hitTestResults = scnView.hitTest(touchLocation, types: .featurePoint)
+        
+        if (!hitTestResults.isEmpty) {
+            guard let hitTestResult = hitTestResults.first else {
+                return
+            }
+            
+            let sphere = SCNSphere(radius: 0.005)
+            
+            let mat = SCNMaterial()
+            mat.diffuse.contents = UIColor.red
+            sphere.firstMaterial = mat
+            let sphereNode = SCNNode(geometry: sphere)
+            sphereNode.position = SCNVector3(hitTestResult.worldTransform.columns.3.x,
+                                             hitTestResult.worldTransform.columns.3.y,
+                                             hitTestResult.worldTransform.columns.3.z)
+            self.sceneView.scene.rootNode.addChildNode(sphereNode)
+        }
     }
     
     private func addCrossSign() {
@@ -49,6 +70,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
+        // create a session configuration
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
 		//track objects in ARWorld and start session
 		sceneView.session.run(configuration)
 	}
