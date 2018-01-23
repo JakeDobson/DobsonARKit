@@ -8,9 +8,7 @@ import ARKit
 class ViewController: UIViewController, ARSCNViewDelegate {
 	//outlets
     @IBOutlet var sceneView: ARSCNView!
-	//globals
-	
-	let tapGestureRecognizer = UITapGestureRecognizer()
+    var spheres = [SCNNode]()
 
 	//life cycle
 	override func viewDidLoad() {
@@ -56,6 +54,22 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                                              hitTestResult.worldTransform.columns.3.y,
                                              hitTestResult.worldTransform.columns.3.z)
             self.sceneView.scene.rootNode.addChildNode(sphereNode)
+            self.spheres.append(sphereNode)
+            
+            if self.spheres.count == 2 {
+                // calculate distance
+                let firstPoint = self.spheres.first!
+                let secondPoint = self.spheres.last!
+                
+                let position = SCNVector3Make(secondPoint.position.x - firstPoint.position.x,
+                                              secondPoint.position.y - firstPoint.position.y,
+                                              secondPoint.position.z - firstPoint.position.z)
+                let result = sqrt(position.x * position.x + position.y * position.y + position.z * position.z)
+                
+                print(result)
+                // remove the speheres
+            }
+            
         }
     }
     
