@@ -66,11 +66,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                                               secondPoint.position.z - firstPoint.position.z)
                 let result = sqrt(position.x * position.x + position.y * position.y + position.z * position.z)
                 
-                print(result)
-                // remove the speheres
+                // Middle = (x1+x2)/2, (y1+y2)/2, (z1+z2)/2
+                let centerPoint = SCNVector3((firstPoint.position.x+secondPoint.position.x)/2,
+                                             (firstPoint.position.y+secondPoint.position.y)/2,
+                                             (firstPoint.position.z+secondPoint.position.z)/2)
+                display(distance: result, position: centerPoint)
+                
             }
             
         }
+    }
+    
+    private func display(distance: Float, position : SCNVector3) {
+        let textGeo = SCNText(string: "\(distance)", extrusionDepth: 1.0)
+        textGeo.firstMaterial?.diffuse.contents = UIColor.black
+        let textNode = SCNNode(geometry: textGeo)
+        textNode.position = position
+        textNode.scale = SCNVector3(0.002, 0.002, 0.002)
+        self.sceneView.scene.rootNode.addChildNode(textNode)
     }
     
     private func addCrossSign() {
