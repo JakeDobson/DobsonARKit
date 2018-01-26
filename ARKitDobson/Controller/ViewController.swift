@@ -23,8 +23,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.delegate = self
 		// Show statistics such as fps and timing information
 		sceneView.showsStatistics = true
+        
+        let carScene = SCNScene(named: "dodge.dae")
+        let carNode = carScene?.rootNode.childNode(withName: "car", recursively: true)
+        
 		// Set the scene to the view
 		let scene = SCNScene()
+        carNode?.position = SCNVector3(0,0,-0.5)
+        scene.rootNode.addChildNode(carNode!)
 		sceneView.scene = scene
 		registerGestureRecognizers()
 		setupPlaneToggleSwitch()
