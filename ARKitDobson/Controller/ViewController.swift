@@ -35,7 +35,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		setupPlaneToggleSwitch()
         self.sceneView.autoenablesDefaultLighting = true;
 
-	}
+        setupControlPad()
+    }
+    
+    private func setupControlPad() {
+        
+        let leftButton = UIButton(frame: CGRect(x: 0, y: self.sceneView.frame.height - 40, width: 50, height: 50))
+        leftButton.setTitle("Left", for: .normal)
+        
+        self.sceneView.addSubview(leftButton)
+    }
 	
 	private func setupPlaneToggleSwitch() {
 		
