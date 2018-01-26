@@ -47,7 +47,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     private func setupControlPad() {
         
-        let leftButton = UIButton(frame: CGRect(x: 0, y: self.sceneView.frame.height - 120, width: 50, height: 50))
+        let leftButton = GameButton(frame: CGRect(x: 0, y: self.sceneView.frame.height - 120, width: 50, height: 50)) {
+            print("left button clicked")
+        }
         leftButton.setTitle("Left", for: .normal)
         
         
@@ -90,8 +92,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	private func registerGestureRecognizers() {
 		
 		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
-		
 		self.sceneView.addGestureRecognizer(tapGestureRecognizer)
+        
+        
 	}
 	
 	
