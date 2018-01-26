@@ -28,23 +28,28 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.scene = scene
 		registerGestureRecognizers()
 		setupPlaneToggleSwitch()
-		insertSpotLight(position: SCNVector3(0,1.0,0))
+//        self.sceneView.autoenablesDefaultLighting = true;
+        insertSpotLight(position: SCNVector3(0,1.0,0))
 	}
 	
 	private func insertSpotLight(position :SCNVector3) {
 		
-		let spotLight = SCNLight()
-		spotLight.type = .spot
-		spotLight.spotInnerAngle = 45
-		spotLight.spotOuterAngle = 45
-		
-		let spotNode = SCNNode()
-		spotNode.name = "SpotNode"
-		spotNode.light = spotLight
-		spotNode.position = position
-		
-		spotNode.eulerAngles = SCNVector3(-Double.pi/2.0,0,-0.2)
-		self.sceneView.scene.rootNode.addChildNode(spotNode)
+        let spotLight = SCNLight()
+        spotLight.type = .spot
+        spotLight.spotInnerAngle = 55
+        spotLight.spotOuterAngle = 55
+        spotLight.attenuationStartDistance = 1
+        spotLight.attenuationEndDistance = 2.5
+        spotLight.attenuationFalloffExponent = 1.0
+        spotLight.intensity = 3000
+
+        let spotNode = SCNNode()
+        spotNode.name = "SpotNode"
+        spotNode.light = spotLight
+        spotNode.position = position
+
+        spotNode.eulerAngles = SCNVector3(-Double.pi/2.0,0,-0.2)
+        self.sceneView.scene.rootNode.addChildNode(spotNode)
 	}
 	
 	private func setupPlaneToggleSwitch() {
@@ -77,20 +82,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		self.sceneView.addGestureRecognizer(tapGestureRecognizer)
 	}
 	
-	func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-		
-		let estimate = self.sceneView.session.currentFrame?.lightEstimate
-		
-		if estimate == nil {
-			return
-		}
-		
-		let spotNode = self.sceneView.scene.rootNode.childNode(withName: "SpotNode", recursively: true)
-		spotNode?.light?.intensity = (estimate?.ambientIntensity)!
-		
-		print(spotNode?.light?.intensity)
-	}
-	
 	
 	@objc func tapped(recognizer :UIGestureRecognizer) {
 		
@@ -112,13 +103,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		
 		let boxGeometry = SCNBox(width: 0.2, height: 0.2, length: 0.1, chamferRadius: 0)
 		let material = SCNMaterial()
-		// material.diffuse.contents = UIColor.red
 		
 		boxGeometry.materials = [material]
 		
 		let boxNode = SCNNode(geometry: boxGeometry)
 		boxNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-		boxNode.physicsBody?.categoryBitMask = BodyType.box.rawValue
 		
 		self.boxes.append(boxNode)
 		
@@ -138,6 +127,20 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		// Run the view's session
 		sceneView.session.run(configuration)
 	}
+    
+//    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+//
+//        let estimate = self.sceneView.session.currentFrame?.lightEstimate
+//
+//        if estimate == nil {
+//            return
+//        }
+//
+//        let spotNode = self.sceneView.scene.rootNode.childNode(withName: "SpotNode", recursively: true)
+//        spotNode?.light?.intensity = (estimate?.ambientIntensity)!
+//
+//        print(spotNode?.light?.intensity)
+//    }
 	
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
 		
