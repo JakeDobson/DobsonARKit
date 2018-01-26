@@ -16,6 +16,7 @@
 		7CC1DA372002E0E1002AC1F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CC1DA352002E0E1002AC1F2 /* LaunchScreen.storyboard */; };
 		7CC1DA452002E22A002AC1F2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CC1DA442002E22A002AC1F2 /* Default-568h@2x.png */; };
 		7CC673122003E01A0003F26A /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CC673112003E01A0003F26A /* art.scnassets */; };
+		EBACF87D201B86CA00808DDA /* dodge.dae in Resources */ = {isa = PBXBuildFile; fileRef = EBACF87C201B86CA00808DDA /* dodge.dae */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		7CC1DA382002E0E1002AC1F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CC1DA442002E22A002AC1F2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7CC673112003E01A0003F26A /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		EBACF87C201B86CA00808DDA /* dodge.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = dodge.dae; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			children = (
 				7CC673112003E01A0003F26A /* art.scnassets */,
 				7CC1DA332002E0E1002AC1F2 /* Assets.xcassets */,
+				EBACF87C201B86CA00808DDA /* dodge.dae */,
 				7CC1DA442002E22A002AC1F2 /* Default-568h@2x.png */,
 				7C97089E2018E51700AC23C2 /* overlay_grid.png */,
 			);
@@ -178,6 +181,7 @@
 				7C97089F2018E51700AC23C2 /* overlay_grid.png in Resources */,
 				7CC1DA372002E0E1002AC1F2 /* LaunchScreen.storyboard in Resources */,
 				7CC1DA342002E0E1002AC1F2 /* Assets.xcassets in Resources */,
+				EBACF87D201B86CA00808DDA /* dodge.dae in Resources */,
 				7CC673122003E01A0003F26A /* art.scnassets in Resources */,
 				7CC1DA452002E22A002AC1F2 /* Default-568h@2x.png in Resources */,
 				7CC1DA322002E0E1002AC1F2 /* Main.storyboard in Resources */,
