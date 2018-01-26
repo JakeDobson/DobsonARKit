@@ -5,13 +5,17 @@
 import UIKit
 import SceneKit
 import ARKit
-import UIKit
-import SceneKit
-import ARKit
+
+enum BodyType : Int {
+    case plane = 2
+    case car = 3
+}
 class ViewController: UIViewController, ARSCNViewDelegate {
 	
 	@IBOutlet var sceneView: ARSCNView!
 	var planes = [OverlayPlane]()
+    
+    private var carNode :SCNNode!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -24,18 +28,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 //        sceneView.showsStatistics = true
         
         let carScene = SCNScene(named: "dodge.dae")
-        let carNode = carScene?.rootNode.childNode(withName: "car", recursively: true)
+        self.carNode = carScene?.rootNode.childNode(withName: "car", recursively: true)
+        self.carNode?.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        
+        self.carNode?.physicsBody?.categoryBitMask = BodyType.car.rawValue
         
 		// Set the scene to the view
 		let scene = SCNScene()
-        carNode?.position = SCNVector3(0,0,-0.5)
-        scene.rootNode.addChildNode(carNode!)
+
 		sceneView.scene = scene
 		registerGestureRecognizers()
 		setupPlaneToggleSwitch()
         self.sceneView.autoenablesDefaultLighting = true;
 
         setupControlPad()
+        
     }
     
     private func setupControlPad() {
@@ -100,7 +107,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 			guard let hitResult = hitTestResult.first else {
 				return
 			}
-             // function to run
+            
+            self.carNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,hitResult.worldTransform.columns.3.y + 0.1, hitResult.worldTransform.columns.3.z)
+            self.sceneView.scene.rootNode.addChildNode(self.carNode)
             
         }
 	}
