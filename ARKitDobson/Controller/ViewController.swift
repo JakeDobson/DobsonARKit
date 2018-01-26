@@ -21,7 +21,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		// Set the view's delegate
 		sceneView.delegate = self
 		// Show statistics such as fps and timing information
-		sceneView.showsStatistics = true
+//        sceneView.showsStatistics = true
         
         let carScene = SCNScene(named: "dodge.dae")
         let carNode = carScene?.rootNode.childNode(withName: "car", recursively: true)
@@ -40,10 +40,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     private func setupControlPad() {
         
-        let leftButton = UIButton(frame: CGRect(x: 0, y: self.sceneView.frame.height - 40, width: 50, height: 50))
+        let leftButton = UIButton(frame: CGRect(x: 0, y: self.sceneView.frame.height - 120, width: 50, height: 50))
         leftButton.setTitle("Left", for: .normal)
         
+        
+        let rightButton = UIButton(frame: CGRect(x: 60, y: self.sceneView.frame.height - 120, width: 50, height: 50))
+    rightButton.setTitle("Right", for: .normal)
+        
+        let acceleratorButton = UIButton(frame: CGRect(x: 120, y: self.sceneView.frame.height - 120, width: 60, height: 20))
+        acceleratorButton.backgroundColor = UIColor.red
+        acceleratorButton.layer.cornerRadius = 10.0
+        acceleratorButton.layer.masksToBounds = true
+        
         self.sceneView.addSubview(leftButton)
+        self.sceneView.addSubview(rightButton)
+        self.sceneView.addSubview(acceleratorButton)
     }
 	
 	private func setupPlaneToggleSwitch() {
