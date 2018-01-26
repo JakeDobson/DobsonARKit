@@ -12,7 +12,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	
 	@IBOutlet var sceneView: ARSCNView!
 	var planes = [OverlayPlane]()
-	var boxes = [SCNNode]()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -34,28 +33,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.scene = scene
 		registerGestureRecognizers()
 		setupPlaneToggleSwitch()
-//        self.sceneView.autoenablesDefaultLighting = true;
-        insertSpotLight(position: SCNVector3(0,1.0,0))
-	}
-	
-	private func insertSpotLight(position :SCNVector3) {
-		
-        let spotLight = SCNLight()
-        spotLight.type = .spot
-        spotLight.spotInnerAngle = 55
-        spotLight.spotOuterAngle = 55
-        spotLight.attenuationStartDistance = 1
-        spotLight.attenuationEndDistance = 2.5
-        spotLight.attenuationFalloffExponent = 1.0
-        spotLight.intensity = 3000
+        self.sceneView.autoenablesDefaultLighting = true;
 
-        let spotNode = SCNNode()
-        spotNode.name = "SpotNode"
-        spotNode.light = spotLight
-        spotNode.position = position
-
-        spotNode.eulerAngles = SCNVector3(-Double.pi/2.0,0,-0.2)
-        self.sceneView.scene.rootNode.addChildNode(spotNode)
 	}
 	
 	private func setupPlaneToggleSwitch() {
@@ -101,26 +80,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 			guard let hitResult = hitTestResult.first else {
 				return
 			}
-			addBox(hitResult :hitResult)
-		}
+             // function to run
+            
+        }
 	}
-	
-	private func addBox(hitResult :ARHitTestResult) {
-		
-		let boxGeometry = SCNBox(width: 0.2, height: 0.2, length: 0.1, chamferRadius: 0)
-		let material = SCNMaterial()
-		
-		boxGeometry.materials = [material]
-		
-		let boxNode = SCNNode(geometry: boxGeometry)
-		boxNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-		
-		self.boxes.append(boxNode)
-		
-		boxNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,hitResult.worldTransform.columns.3.y + Float(0.5), hitResult.worldTransform.columns.3.z)
-		
-		self.sceneView.scene.rootNode.addChildNode(boxNode)
-	}
+
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -133,20 +97,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		// Run the view's session
 		sceneView.session.run(configuration)
 	}
-    
-//    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-//
-//        let estimate = self.sceneView.session.currentFrame?.lightEstimate
-//
-//        if estimate == nil {
-//            return
-//        }
-//
-//        let spotNode = self.sceneView.scene.rootNode.childNode(withName: "SpotNode", recursively: true)
-//        spotNode?.light?.intensity = (estimate?.ambientIntensity)!
-//
-//        print(spotNode?.light?.intensity)
-//    }
 	
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
 		
