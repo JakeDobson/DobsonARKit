@@ -14,8 +14,6 @@ class Car: SCNNode {
     
     var carNode :SCNNode
     
-    private var zVelocityOffset = 0.1
-    
     init(node: SCNNode) {
         self.carNode = node
         super.init()
@@ -38,19 +36,19 @@ class Car: SCNNode {
     
     func turnRight() {
         print("right")
-        self.carNode.physicsBody?.applyTorque(SCNVector4(0,1,0,-1.0), asImpulse: false)
+        self.physicsBody?.applyTorque(SCNVector4(0,1,0,-1.0), asImpulse: false)
     }
     
     func turnLeft() {
-        self.carNode.physicsBody?.applyTorque(SCNVector4(0,1,0,1.0), asImpulse: false)
+        self.physicsBody?.applyTorque(SCNVector4(0,1,0,1.0), asImpulse: false)
     }
     
     func accelerate() {
         
         let force = simd_make_float4(0, 0, -10.0, 0)
-        let rotatedForce = simd_mul(self.carNode.presentation.simdTransform,force)
+        let rotatedForce = simd_mul(self.presentation.simdTransform,force)
         let vectorForce = SCNVector3(rotatedForce.x,rotatedForce.y,rotatedForce.z)
-        self.carNode.physicsBody?.applyForce(vectorForce, asImpulse: false)
+        self.physicsBody?.applyForce(vectorForce, asImpulse: false)
     }
     
 }
