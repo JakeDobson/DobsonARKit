@@ -4,11 +4,8 @@
 //
 //  Created by Josh Dobson on 1/29/18.
 //  Copyright © 2018 Jacob Dobson. All rights reserved.
-//
-
-import Foundation
+import UIKit
 import SceneKit
-
 
 class Car: SCNNode {
     
@@ -17,7 +14,6 @@ class Car: SCNNode {
     init(node: SCNNode) {
         self.carNode = node
         super.init()
-        
         setup()
     }
     
@@ -25,31 +21,29 @@ class Car: SCNNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setup() {
+    func setup() {
         self.addChildNode(self.carNode)
-        
         // add physics
-        
         self.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         self.physicsBody?.categoryBitMask = BodyType.car.rawValue
     }
     
     func turnRight() {
         print("right")
-        self.physicsBody?.applyTorque(SCNVector4(0,1,0,-1.0), asImpulse: false)
+        self.physicsBody?.applyTorque(SCNVector4(0,1.0,0,-1.0), asImpulse: false)
     }
     
     func turnLeft() {
-        self.physicsBody?.applyTorque(SCNVector4(0,1,0,1.0), asImpulse: false)
+		print("left")
+        self.physicsBody?.applyTorque(SCNVector4(0,1.0,0,1.0), asImpulse: false)
     }
     
     func accelerate() {
-        
-        let force = simd_make_float4(0, 0, -10.0, 0)
+		print("accelerate")
+        let force = simd_make_float4(0, 0, -8, 0)
         let rotatedForce = simd_mul(self.presentation.simdTransform,force)
         let vectorForce = SCNVector3(rotatedForce.x,rotatedForce.y,rotatedForce.z)
         self.physicsBody?.applyForce(vectorForce, asImpulse: false)
     }
-    
 }
 

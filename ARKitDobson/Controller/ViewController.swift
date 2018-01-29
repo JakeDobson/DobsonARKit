@@ -15,7 +15,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
     var planes = [OverlayPlane]()
     
-    private var car :Car!
+    private var car: Car!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,13 +41,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene = scene
         registerGestureRecognizers()
         setupPlaneToggleSwitch()
-        self.sceneView.autoenablesDefaultLighting = true;
+        self.sceneView.autoenablesDefaultLighting = true
         
         setupControlPad()
         
     }
     
     private func setupControlPad() {
+		
+		print("CONTROL PAD ********")
         
         let leftButton = GameButton(frame: CGRect(x: 0, y: self.sceneView.frame.height - 120, width: 50, height: 50)) {
             self.car.turnLeft()
@@ -59,7 +61,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
         rightButton.setTitle("Right", for: .normal)
         
-        let acceleratorButton = GameButton(frame: CGRect(x: 120, y: self.sceneView.frame.height - 120, width: 60, height: 20)) {
+        let acceleratorButton = GameButton(frame: CGRect(x: 120, y: self.sceneView.frame.height - 105, width: 60, height: 20)) {
             self.car.accelerate()
         }
         acceleratorButton.backgroundColor = UIColor.red
@@ -116,7 +118,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 return
             }
             
-            self.car.position = SCNVector3(hitResult.worldTransform.columns.3.x,hitResult.worldTransform.columns.3.y + 0.1, hitResult.worldTransform.columns.3.z)
+            self.car.position = SCNVector3(hitResult.worldTransform.columns.3.x,hitResult.worldTransform.columns.3.y + 0.2, hitResult.worldTransform.columns.3.z)
             self.sceneView.scene.rootNode.addChildNode(self.car)
             
         }
