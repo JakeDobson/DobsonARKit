@@ -5,82 +5,165 @@
 import UIKit
 import SceneKit
 import ARKit
+
+enum BodyType : Int {
+    case plane = 2
+    case car = 3
+}
 class ViewController: UIViewController, ARSCNViewDelegate {
-	//outlets
-    @IBOutlet var sceneView: ARSCNView!
-	//globals
-	let configuration = ARWorldTrackingConfiguration()
-	let tapGestureRecognizer = UITapGestureRecognizer()
-	let box = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
-	let mat = SCNMaterial()
-	let boxNode = SCNNode()
-	let scene = SCNScene()
-	//life cycle
+	
+	@IBOutlet var sceneView: ARSCNView!
+	var planes = [OverlayPlane]()
+    
+    private var car :Car!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		self.sceneView = ARSCNView(frame: self.view.frame)
+		self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints,ARSCNDebugOptions.showWorldOrigin]
+		self.view.addSubview(sceneView)
 		// Set the view's delegate
 		sceneView.delegate = self
 		// Show statistics such as fps and timing information
-		sceneView.showsStatistics = true
-		//form box with /mterial/dimensions/position
-		boxNode.position = SCNVector3(0, 0, -0.5)
-		boxNode.geometry = box
-		mat.diffuse.contents = UIColor.purple
-		box.firstMaterial = mat
-		//add boxNode to scene
-		scene.rootNode.addChildNode(boxNode)
-		//give target to gesture recognizer and call tapped func to move box
-		tapGestureRecognizer.addTarget(self, action: #selector(tapped))
-		sceneView.addGestureRecognizer(tapGestureRecognizer)
+//        sceneView.showsStatistics = true
+        
+        let carScene = SCNScene(named: "dodge.dae")
+        guard let node = carScene?.rootNode.childNode(withName: "car", recursively: true) else {
+            return
+        }
+        
+        self.car = Car(node: node)
+        
+        
 		// Set the scene to the view
+		let scene = SCNScene()
+
 		sceneView.scene = scene
+		registerGestureRecognizers()
+		setupPlaneToggleSwitch()
+        self.sceneView.autoenablesDefaultLighting = true;
+
+        setupControlPad()
+        
+    }
+    
+    private func setupControlPad() {
+        
+        let leftButton = GameButton(frame: CGRect(x: 0, y: self.sceneView.frame.height - 120, width: 50, height: 50)) {
+            self.car.turnLeft()
+        }
+        leftButton.setTitle("Left", for: .normal)
+        
+        let rightButton = GameButton(frame: CGRect(x: 60, y: self.sceneView.frame.height - 120, width: 50, height: 50)) {
+            self.car.turnRight()
+        }
+        rightButton.setTitle("Right", for: .normal)
+        
+        let acceleratorButton = GameButton(frame: CGRect(x: 120, y: self.sceneView.frame.height - 120, width: 60, height: 20)) {
+            self.car.accelerate()
+        }
+        acceleratorButton.backgroundColor = UIColor.red
+        acceleratorButton.layer.cornerRadius = 10.0
+        acceleratorButton.layer.masksToBounds = true
+        
+        self.sceneView.addSubview(leftButton)
+        self.sceneView.addSubview(rightButton)
+        self.sceneView.addSubview(acceleratorButton)
+    }
+	
+	private func setupPlaneToggleSwitch() {
+		
+		let planeToggleSwitch = UISwitch(frame: CGRect(x: 10, y: self.sceneView.frame.height - 44, width: 100, height: 33))
+		planeToggleSwitch.addTarget(self, action: #selector(planeSwitchToggled), for: .valueChanged)
+		self.sceneView.addSubview(planeToggleSwitch)
 	}
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		//track objects in ARWorld and start session
-		sceneView.session.run(configuration)
-	}
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		//pause session
-		sceneView.session.pause()
-	}
-//MARK: helper funcs
-	@objc func tapped(recognizer: UITapGestureRecognizer) {
-		//get location of touch from user
-		let touchLocation = recognizer.location(in: sceneView)
-		//get hitTestResults
-		let hitResult = sceneView.hitTest(touchLocation, options: nil)
-		//if box touched, move box
-		if hitResult.isEmpty { //alert user to touch box?
-			print("pressed inside SELF.SCENEVIEW")
-		} else { //move box
-			boxNode.runAction(SCNAction.rotateBy(x: 1, y: 1, z: .pi * 2, duration: 4))
-		// below is an alternate spin method that runs forever \\
-//			boxNode.pivot = SCNMatrix4MakeRotation(.pi / 2, 1, 0, 0)
-//			let spin = CABasicAnimation(keyPath: "rotation")
-//			spin.fromValue = NSValue(scnVector4: SCNVector4(0, 0, 1, 0))
-//			spin.toValue = NSValue(scnVector4: SCNVector4(0, 0, 1, 6.28))
-//			spin.duration = 3
-//			spin.repeatCount = .infinity
-//			boxNode.addAnimation(spin, forKey: "spin around")
+	
+	// turn off the plane detection and remove the grid from the plane
+	@objc func planeSwitchToggled(planeSwitch :UISwitch) {
+		
+		let configuration = self.sceneView.session.configuration as! ARWorldTrackingConfiguration
+		
+		configuration.planeDetection = []
+		self.sceneView.session.run(configuration, options: [])
+		
+		// turn off the grid
+		for plane in self.planes {
+			plane.planeGeometry.materials.forEach { material in
+				material.diffuse.contents = UIColor.clear
+			}
 		}
 	}
-// MARK: - ARSCNViewDelegate
-	/*
-	// Override to create and configure nodes for anchors added to the view's session.
-	func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-	let node = SCNNode()
-	return node
+	
+	private func registerGestureRecognizers() {
+		
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+		self.sceneView.addGestureRecognizer(tapGestureRecognizer)
+        
+        
 	}
-	*/
-	func session(_ session: ARSession, didFailWithError error: Error) {
-		// Present an error message to the user
+	
+	
+	@objc func tapped(recognizer :UIGestureRecognizer) {
+		
+		let sceneView = recognizer.view as! ARSCNView
+		let touchLocation = recognizer.location(in: sceneView)
+		
+		let hitTestResult = sceneView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
+		
+		if !hitTestResult.isEmpty {
+			
+			guard let hitResult = hitTestResult.first else {
+				return
+			}
+            
+            self.car.position = SCNVector3(hitResult.worldTransform.columns.3.x,hitResult.worldTransform.columns.3.y + 0.1, hitResult.worldTransform.columns.3.z)
+            self.sceneView.scene.rootNode.addChildNode(self.car)
+            
+        }
 	}
-	func sessionWasInterrupted(_ session: ARSession) {
-		// Inform the user that the session has been interrupted, for example, by presenting an overlay
+
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		// Create a session configuration
+		let configuration = ARWorldTrackingConfiguration()
+		
+		configuration.planeDetection = .horizontal
+		
+		// Run the view's session
+		sceneView.session.run(configuration)
 	}
-	func sessionInterruptionEnded(_ session: ARSession) {
-		// Reset tracking and/or remove existing anchors if consistent tracking is required
+	
+	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+		
+		if !(anchor is ARPlaneAnchor) {
+			return
+		}
+		
+		let plane = OverlayPlane(anchor: anchor as! ARPlaneAnchor)
+		self.planes.append(plane)
+		node.addChildNode(plane)
+	}
+	
+	func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+		
+		let plane = self.planes.filter { plane in
+			return plane.anchor.identifier == anchor.identifier
+			}.first
+		
+		if plane == nil {
+			return
+		}
+		
+		plane?.update(anchor: anchor as! ARPlaneAnchor)
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		// Pause the view's session
+		sceneView.session.pause()
 	}
 }
+
