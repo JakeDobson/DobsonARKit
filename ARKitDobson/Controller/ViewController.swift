@@ -9,10 +9,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	//outlets
     @IBOutlet var sceneView: ARSCNView!
 	//globals
-	var numOfPlanes: Int = 0
 	var planes = [Plane]()
 	//constants
-	private let label: UILabel = UILabel()
 	//life cycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -46,42 +44,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.session.pause()
 	}
 //MARK: helper funcs
-	func setupAlertLabel() {
-		//setup label properties
-		self.label.frame = CGRect(x: 0,
-								  y: 0,
-								  width: sceneView.frame.size.width,
-								  height: 44)
-		self.label.center = CGPoint(x: label.frame.width/2 + 16, y: label.frame.height/2 + 16)
-		self.label.textAlignment = .left
-		self.label.textColor = UIColor.white
-		self.label.font = UIFont.boldSystemFont(ofSize: 36)
-		self.label.alpha = 0
-		//add label to sceneView as subview
-		self.sceneView.addSubview(self.label)
-	}
 // MARK: - ARSCNViewDelegate
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
 		//if no anchor found, don't render anything!
 		if !(anchor is ARPlaneAnchor) {
 			return
 		}
-		//every time plane is detected, increase numOfPlanes counter by 1
-		numOfPlanes += 1
-		//present label as alert for total number  of planes detected off the main thread
-		DispatchQueue.main.async {
-			self.label.text = "\(self.numOfPlanes) plane(s) detected"
-			print("\(self.numOfPlanes) plane(s) detected")
-			UIView.animate(withDuration: 3.0, animations: {
-				self.label.alpha = 1.0
-			}) { (completion: Bool) in
-				self.label.alpha = 0.0
-			}
-			//add plane to scene
-			let plane = Plane(anchor: anchor as! ARPlaneAnchor)
-			self.planes.append(plane)
-			node.addChildNode(plane)
-		}
+		//add plane to scene
+		let plane = Plane(anchor: anchor as! ARPlaneAnchor)
+		self.planes.append(plane)
+		node.addChildNode(plane)
 	}
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
