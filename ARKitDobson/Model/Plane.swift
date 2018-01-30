@@ -7,10 +7,10 @@ import ARKit
 import SceneKit
 //subclass Plane
 class Plane: SCNNode {
-    var anchor :ARPlaneAnchor!
-    private var planeGeometry :SCNPlane!
+    var anchor: ARPlaneAnchor!
+    var planeGeometry: SCNPlane!
     
-    init(anchor :ARPlaneAnchor) {
+    init(anchor: ARPlaneAnchor) {
         
         self.anchor = anchor
         super.init()

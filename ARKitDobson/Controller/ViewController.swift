@@ -54,6 +54,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		let carScene = SCNScene(named: "regularOldCar.dae")!
 		guard let carNode = carScene.rootNode.childNode(withName: "car", recursively: true) else { return }
 		carNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
+		carNode.scale = SCNVector3(0.025, 0.025, 0.025)
 		self.sceneView.scene.rootNode.addChildNode(carNode)
 	}
 // MARK: - ARSCNViewDelegate
