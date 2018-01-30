@@ -48,25 +48,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	}
 //MARK: helper funcs
 	@objc func tapped(recognizer: UIGestureRecognizer) {
-		let scnView = recognizer.view as! ARSCNView
-		let touchLocation = recognizer.location(in: scnView)
-		let hitTestResult = scnView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
-		//if touched on a plane, add object at location of touch
-		if !hitTestResult.isEmpty {
-			guard let hitResult = hitTestResult.first else { return }
-			addVirtualObject(hitResult: hitResult)
-		}
-	}
-	
-	private func addVirtualObject(hitResult: ARHitTestResult) {
+		guard let currentFrame = self.sceneView.session.currentFrame else { return }
 		var translation = matrix_identity_float4x4
-		translation.columns.3.z = -0.8
+		translation.columns.3.z = -0.1
 		let carScene = SCNScene(named: "regularOldCar.dae")!
 		guard let carNode = carScene.rootNode.childNode(withName: "car", recursively: true) else { return }
-//		carNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
-//									  hitResult.worldTransform.columns.3.y + 0.1,
-//									  hitResult.worldTransform.columns.3.z)
-		carNode.simdTransform = matrix_multiply((self.sceneView.session.currentFrame?.camera.transform)!, translation)
+		carNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
 		self.sceneView.scene.rootNode.addChildNode(carNode)
 	}
 // MARK: - ARSCNViewDelegate
