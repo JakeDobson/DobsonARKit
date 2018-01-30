@@ -16,8 +16,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		super.viewDidLoad()
 		//set sceneView's frame
 		self.sceneView = ARSCNView(frame: self.view.frame)
-		//label properties
-		setupAlertLabel()
 		//add debugging option for sceneView (show x, y , z coords)
 		self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
 		//add subview to scene
@@ -26,6 +24,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.delegate = self
 		//show statistics such as fps and timing information
 		sceneView.showsStatistics = true
+		//gesture recognizer setup
+		//give target to gesture recognizer and call tapped func to move box
+		tapGestureRecognizer.addTarget(self, action: #selector(tapped))
+		sceneView.addGestureRecognizer(tapGestureRecognizer)
 		//create new scene
 		let scene = SCNScene()
 		//set scene to view
@@ -44,6 +46,25 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.session.pause()
 	}
 //MARK: helper funcs
+	@objc func tapped(recognizer: UIGestureRecognizer) {
+		let scnView = recognizer.view as! ARSCNView
+		let touchLocation = recognizer.location(in: scnView)
+		let hitTestResult = scnView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
+		//if touched on a plane, add object at location of touch
+		if !hitTestResult.isEmpty {
+			guard let hitResult = hitTestResult.first else { return }
+			addVirtualObject(hitResult: hitResult)
+		}
+	}
+	
+	private func addVirtualObject(hitResult: ARHitTestResult) {
+		let carScene = SCNScene(named: "regularOldCar.dae")!
+		guard let carNode = carScene.rootNode.childNode(withName: "car", recursively: true) else { return }
+		carNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
+									  hitResult.worldTransform.columns.3.y + 0.1,
+									  hitResult.worldTransform.columns.3.z)
+		self.sceneView.scene.rootNode.addChildNode(carNode)
+	}
 // MARK: - ARSCNViewDelegate
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
 		//if no anchor found, don't render anything!
