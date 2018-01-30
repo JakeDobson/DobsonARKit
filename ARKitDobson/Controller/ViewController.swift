@@ -10,6 +10,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet var sceneView: ARSCNView!
 	//globals
 	var planes = [Plane]()
+	let tapGestureRecognizer = UITapGestureRecognizer()
 	//constants
 	//life cycle
 	override func viewDidLoad() {
@@ -58,11 +59,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	}
 	
 	private func addVirtualObject(hitResult: ARHitTestResult) {
+		var translation = matrix_identity_float4x4
+		translation.columns.3.z = -0.8
 		let carScene = SCNScene(named: "regularOldCar.dae")!
 		guard let carNode = carScene.rootNode.childNode(withName: "car", recursively: true) else { return }
-		carNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
-									  hitResult.worldTransform.columns.3.y + 0.1,
-									  hitResult.worldTransform.columns.3.z)
+//		carNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
+//									  hitResult.worldTransform.columns.3.y + 0.1,
+//									  hitResult.worldTransform.columns.3.z)
+		carNode.simdTransform = matrix_multiply((self.sceneView.session.currentFrame?.camera.transform)!, translation)
 		self.sceneView.scene.rootNode.addChildNode(carNode)
 	}
 // MARK: - ARSCNViewDelegate
