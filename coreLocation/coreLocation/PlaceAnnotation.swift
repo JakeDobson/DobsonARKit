@@ -47,6 +47,7 @@ class PlaceAnnotation : LocationNode {
         
         let textNode = SCNNode(geometry: text)
         textNode.position = SCNVector3(0,0,0.2)
+        center(node: textNode)
         
         
         let planeNode = SCNNode(geometry: plane)
