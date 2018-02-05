@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:coreLocation.xcodeproj">
+      location = "self:/Users/jrd02/Documents/_work/AR/DobsonARKit/coreLocation/NeAR Me.xcodeproj">
    </FileRef>
 </Workspace>
