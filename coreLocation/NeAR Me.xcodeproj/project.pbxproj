@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C6C62B32028B7FE002798F2 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C6C62B02028B7FD002798F2 /* pin.png */; };
+		7C6C62B42028B7FE002798F2 /* pin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C6C62B12028B7FD002798F2 /* pin@3x.png */; };
+		7C6C62B52028B7FE002798F2 /* pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C6C62B22028B7FE002798F2 /* pin@2x.png */; };
+		7C6C62B82028B810002798F2 /* coffee.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C6C62B62028B80E002798F2 /* coffee.png */; };
+		7C6C62B92028B810002798F2 /* blurred-image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7C6C62B72028B80E002798F2 /* blurred-image.jpg */; };
 		EB29C41A2024C66B00A743B0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29C4192024C66B00A743B0 /* AppDelegate.swift */; };
 		EB29C41C2024C66B00A743B0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29C41B2024C66B00A743B0 /* ViewController.swift */; };
 		EB29C41F2024C66B00A743B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB29C41D2024C66B00A743B0 /* Main.storyboard */; };
@@ -17,6 +22,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C6C62B02028B7FD002798F2 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		7C6C62B12028B7FD002798F2 /* pin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin@3x.png"; sourceTree = "<group>"; };
+		7C6C62B22028B7FE002798F2 /* pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin@2x.png"; sourceTree = "<group>"; };
+		7C6C62B62028B80E002798F2 /* coffee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coffee.png; sourceTree = "<group>"; };
+		7C6C62B72028B80E002798F2 /* blurred-image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "blurred-image.jpg"; sourceTree = "<group>"; };
 		EB29C4162024C66B00A743B0 /* NeAR Me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NeAR Me.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB29C4192024C66B00A743B0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB29C41B2024C66B00A743B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -60,6 +70,11 @@
 			children = (
 				EB29C4192024C66B00A743B0 /* AppDelegate.swift */,
 				EB29C41B2024C66B00A743B0 /* ViewController.swift */,
+				7C6C62B72028B80E002798F2 /* blurred-image.jpg */,
+				7C6C62B62028B80E002798F2 /* coffee.png */,
+				7C6C62B02028B7FD002798F2 /* pin.png */,
+				7C6C62B22028B7FE002798F2 /* pin@2x.png */,
+				7C6C62B12028B7FD002798F2 /* pin@3x.png */,
 				EB29C41D2024C66B00A743B0 /* Main.storyboard */,
 				EB29C42B2024C7C000A743B0 /* PlacesTableViewController.swift */,
 				EB29C4202024C66B00A743B0 /* Assets.xcassets */,
@@ -129,9 +144,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C6C62B92028B810002798F2 /* blurred-image.jpg in Resources */,
+				7C6C62B82028B810002798F2 /* coffee.png in Resources */,
 				EB29C4242024C66B00A743B0 /* LaunchScreen.storyboard in Resources */,
+				7C6C62B32028B7FE002798F2 /* pin.png in Resources */,
+				7C6C62B52028B7FE002798F2 /* pin@2x.png in Resources */,
 				EB29C4212024C66B00A743B0 /* Assets.xcassets in Resources */,
 				EB29C41F2024C66B00A743B0 /* Main.storyboard in Resources */,
+				7C6C62B42028B7FE002798F2 /* pin@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,7 +303,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LJ2K39UTN6;
+				DEVELOPMENT_TEAM = HYPCVH7NE6;
 				INFOPLIST_FILE = coreLocation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshuarule.coreLocation;
@@ -298,7 +318,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LJ2K39UTN6;
+				DEVELOPMENT_TEAM = HYPCVH7NE6;
 				INFOPLIST_FILE = coreLocation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.joshuarule.coreLocation;
