@@ -13,6 +13,7 @@
 		EB29C4212024C66B00A743B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB29C4202024C66B00A743B0 /* Assets.xcassets */; };
 		EB29C4242024C66B00A743B0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB29C4222024C66B00A743B0 /* LaunchScreen.storyboard */; };
 		EB29C42C2024C7C000A743B0 /* PlacesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29C42B2024C7C000A743B0 /* PlacesTableViewController.swift */; };
+		EB9F39B52028B76A0066C6E5 /* PlaceAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9F39B42028B76A0066C6E5 /* PlaceAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		EB29C4232024C66B00A743B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB29C4252024C66B00A743B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB29C42B2024C7C000A743B0 /* PlacesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTableViewController.swift; sourceTree = "<group>"; };
+		EB9F39B42028B76A0066C6E5 /* PlaceAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				EB29C4202024C66B00A743B0 /* Assets.xcassets */,
 				EB29C4222024C66B00A743B0 /* LaunchScreen.storyboard */,
 				EB29C4252024C66B00A743B0 /* Info.plist */,
+				EB9F39B42028B76A0066C6E5 /* PlaceAnnotation.swift */,
 			);
 			path = coreLocation;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB9F39B52028B76A0066C6E5 /* PlaceAnnotation.swift in Sources */,
 				EB29C41C2024C66B00A743B0 /* ViewController.swift in Sources */,
 				EB29C41A2024C66B00A743B0 /* AppDelegate.swift in Sources */,
 				EB29C42C2024C7C000A743B0 /* PlacesTableViewController.swift in Sources */,
