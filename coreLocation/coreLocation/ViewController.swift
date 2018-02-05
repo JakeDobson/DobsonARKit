@@ -69,9 +69,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
             for item in response.mapItems {
                 let placeLocation = (item.placemark.location)!
-                let placeAnnotationNode = placeAnnotation(location: placeLocation, title: item.placeMark.name)
+                let placeAnnotationNode = PlaceAnnotation(location: placeLocation, title: item.placemark.name!)
                 
-                placeAnnotationNode.scaleRelativeToDistance = false
                 DispatchQueue.main.async {
                     self.sceneLocationView.addLocationNodeWithConfirmedLocation(locationNode: placeAnnotationNode)
                 }
