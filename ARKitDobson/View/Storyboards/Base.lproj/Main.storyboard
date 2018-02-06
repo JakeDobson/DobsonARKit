@@ -52,6 +52,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="imgView" destination="f1N-bB-IpC" id="FWG-At-QUa"/>
+                        <outlet property="txtView" destination="4X7-YG-2eh" id="VI3-Yi-5Dl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
