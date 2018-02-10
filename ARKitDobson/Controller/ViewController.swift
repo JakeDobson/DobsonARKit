@@ -9,7 +9,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	//outlets
     @IBOutlet var sceneView: ARSCNView!
 	//globals
-	let configuration = ARWorldTrackingConfiguration()
 	let tapGestureRecognizer = UITapGestureRecognizer()
 	let box = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
 	let mat = SCNMaterial()
@@ -37,7 +36,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	}
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		//track objects in ARWorld and start session
+		//track devices movement with position(x, y, z) and rotation(roll, pitch, yaw)
+		let configuration = ARWorldTrackingConfiguration()
 		sceneView.session.run(configuration)
 	}
 	override func viewWillDisappear(_ animated: Bool) {
