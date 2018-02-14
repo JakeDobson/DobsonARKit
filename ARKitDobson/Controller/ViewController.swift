@@ -78,7 +78,19 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sphereMaterial.diffuse.contents = UIColor.orange
 		sphere.firstMaterial = sphereMaterial
 		let sphereNode = SCNNode(geometry: sphere)
+		
+		let textGeo = SCNText(string: text, extrusionDepth: 0)
+		textGeo.alignmentMode = kCAAlignmentCenter
+		textGeo.firstMaterial?.diffuse.contents = UIColor.orange
+		textGeo.firstMaterial?.specular.contents = UIColor.white
+		textGeo.firstMaterial?.isDoubleSided = true
+		textGeo.font = UIFont(name: "Futura", size: 0.15)
+		
+		let textNode = SCNNode(geometry: textGeo)
+		textNode.scale = SCNVector3Make(0.2, 0.2, 0.2)
+		
 		parentNode.addChildNode(sphereNode)
+		parentNode.addChildNode(textNode)
 		return parentNode
 	}
 	
