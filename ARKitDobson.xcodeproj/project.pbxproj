@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C39BE6D2034945B0014B2DE /* Resnet50.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 7C39BE6C2034945B0014B2DE /* Resnet50.mlmodel */; };
 		7CC1DA2B2002E0E1002AC1F2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC1DA2A2002E0E1002AC1F2 /* AppDelegate.swift */; };
 		7CC1DA2F2002E0E1002AC1F2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CC1DA2E2002E0E1002AC1F2 /* ViewController.swift */; };
 		7CC1DA322002E0E1002AC1F2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CC1DA302002E0E1002AC1F2 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7C39BE6C2034945B0014B2DE /* Resnet50.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Resnet50.mlmodel; sourceTree = "<group>"; };
 		7CC1DA272002E0E1002AC1F2 /* ARKitDobson.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARKitDobson.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CC1DA2A2002E0E1002AC1F2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7CC1DA2E2002E0E1002AC1F2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		7CC1DA3F2002E129002AC1F2 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7C39BE6C2034945B0014B2DE /* Resnet50.mlmodel */,
 				7CC1DA2A2002E0E1002AC1F2 /* AppDelegate.swift */,
 				7CC1DA382002E0E1002AC1F2 /* Info.plist */,
 			);
@@ -185,6 +188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CC1DA2F2002E0E1002AC1F2 /* ViewController.swift in Sources */,
+				7C39BE6D2034945B0014B2DE /* Resnet50.mlmodel in Sources */,
 				7CC1DA2B2002E0E1002AC1F2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
