@@ -92,6 +92,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
 			let observation = observations.first as! VNClassificationObservation
 			print("Name \(observation.identifier) and confidence is \(observation.confidence)")
+			DispatchQueue.main.async {
+				self.displayPredictions(text: observation.identifier)
+			}
 		}
 		request.imageCropAndScaleOption = .centerCrop
 		self.visionRequests = [request]
@@ -100,7 +103,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		DispatchQueue.global().async {
 			try! imageRequestHandler.perform(self.visionRequests)
 		}
-		
 	}
 // MARK: - ARSCNViewDelegate
 	/*
