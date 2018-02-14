@@ -41,7 +41,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 //MARK: helper funcs
 	@objc func tapped(recognizer: UITapGestureRecognizer) {
 		let scnView = recognizer.view as! ARSCNView
-		let touchLocation = sceneView.center
+		let touchLocation = self.sceneView.center
 		
 		guard let currentFrame = scnView.session.currentFrame else { return }
 		
@@ -59,6 +59,27 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		let pixelBuffer = currentFrame.capturedImage
 		
 		performVisionRequest(pixelBuffer: pixelBuffer)
+	}
+	
+	private func displayPredictions(text: String) {
+		let node = createText(text: text)
+		
+		node.position = SCNVector3(self.hitTestResult.worldTransform.columns.3.x,
+								   self.hitTestResult.worldTransform.columns.3.y,
+								   self.hitTestResult.worldTransform.columns.3.z)
+		
+		self.sceneView.scene.rootNode.addChildNode(node)
+	}
+	
+	private func createText(text: String) -> SCNNode {
+		let parentNode = SCNNode()
+		let sphere = SCNSphere(radius: 0.01)
+		let sphereMaterial = SCNMaterial()
+		sphereMaterial.diffuse.contents = UIColor.orange
+		sphere.firstMaterial = sphereMaterial
+		let sphereNode = SCNNode(geometry: sphere)
+		parentNode.addChildNode(sphereNode)
+		return parentNode
 	}
 	
 	private func performVisionRequest(pixelBuffer: CVPixelBuffer) {
