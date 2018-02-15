@@ -21,8 +21,10 @@
 		7CC1DA372002E0E1002AC1F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CC1DA352002E0E1002AC1F2 /* LaunchScreen.storyboard */; };
 		7CC1DA452002E22A002AC1F2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CC1DA442002E22A002AC1F2 /* Default-568h@2x.png */; };
 		7CC673122003E01A0003F26A /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CC673112003E01A0003F26A /* art.scnassets */; };
-		EBA597DC2035EA8E00FEA5B6 /* Desk.mtl in Resources */ = {isa = PBXBuildFile; fileRef = EBA597DA2035EA8D00FEA5B6 /* Desk.mtl */; };
-		EBA597DD2035EA8E00FEA5B6 /* Desk.obj in Resources */ = {isa = PBXBuildFile; fileRef = EBA597DB2035EA8E00FEA5B6 /* Desk.obj */; };
+		EBA597EE2035F11A00FEA5B6 /* materials.mtl in Resources */ = {isa = PBXBuildFile; fileRef = EBA597EC2035F11A00FEA5B6 /* materials.mtl */; };
+		EBA597EF2035F11A00FEA5B6 /* model.obj in Resources */ = {isa = PBXBuildFile; fileRef = EBA597ED2035F11A00FEA5B6 /* model.obj */; };
+		EBA597F22035F1B600FEA5B6 /* table.obj in Resources */ = {isa = PBXBuildFile; fileRef = EBA597F02035F1B600FEA5B6 /* table.obj */; };
+		EBA597F32035F1B600FEA5B6 /* table.mtl in Resources */ = {isa = PBXBuildFile; fileRef = EBA597F12035F1B600FEA5B6 /* table.mtl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,8 +44,10 @@
 		7CC1DA382002E0E1002AC1F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CC1DA442002E22A002AC1F2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7CC673112003E01A0003F26A /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		EBA597DA2035EA8D00FEA5B6 /* Desk.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Desk.mtl; sourceTree = "<group>"; };
-		EBA597DB2035EA8E00FEA5B6 /* Desk.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Desk.obj; sourceTree = "<group>"; };
+		EBA597EC2035F11A00FEA5B6 /* materials.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = materials.mtl; path = "../../../../../../Downloads/fWqUmeGBc-L_obj/materials.mtl"; sourceTree = "<group>"; };
+		EBA597ED2035F11A00FEA5B6 /* model.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = model.obj; path = "../../../../../../Downloads/fWqUmeGBc-L_obj/model.obj"; sourceTree = "<group>"; };
+		EBA597F02035F1B600FEA5B6 /* table.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = table.obj; sourceTree = "<group>"; };
+		EBA597F12035F1B600FEA5B6 /* table.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = table.mtl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +112,10 @@
 				7CC673112003E01A0003F26A /* art.scnassets */,
 				7CC1DA332002E0E1002AC1F2 /* Assets.xcassets */,
 				7CC1DA442002E22A002AC1F2 /* Default-568h@2x.png */,
-				EBA597DA2035EA8D00FEA5B6 /* Desk.mtl */,
-				EBA597DB2035EA8E00FEA5B6 /* Desk.obj */,
+				EBA597EC2035F11A00FEA5B6 /* materials.mtl */,
+				EBA597ED2035F11A00FEA5B6 /* model.obj */,
+				EBA597F12035F1B600FEA5B6 /* table.mtl */,
+				EBA597F02035F1B600FEA5B6 /* table.obj */,
 				7C39BE722035EB490014B2DE /* bed.mtl */,
 				7C39BE732035EB490014B2DE /* bed.obj */,
 				7C67C93A20065F5800F38066 /* tronGrid.png */,
@@ -206,17 +212,19 @@
 			files = (
 				7CC1DA372002E0E1002AC1F2 /* LaunchScreen.storyboard in Resources */,
 				7CC1DA342002E0E1002AC1F2 /* Assets.xcassets in Resources */,
-				EBA597DC2035EA8E00FEA5B6 /* Desk.mtl in Resources */,
+				EBA597EF2035F11A00FEA5B6 /* model.obj in Resources */,
 				7C39BE752035EB4A0014B2DE /* bed.obj in Resources */,
 				7CC673122003E01A0003F26A /* art.scnassets in Resources */,
 				7CC1DA452002E22A002AC1F2 /* Default-568h@2x.png in Resources */,
 				7C67C93B20065F5800F38066 /* tronGrid.png in Resources */,
-				EBA597DD2035EA8E00FEA5B6 /* Desk.obj in Resources */,
 				7C720FF22007B10000D3589F /* regularOldCar.dae in Resources */,
 				7CC1DA322002E0E1002AC1F2 /* Main.storyboard in Resources */,
 				7C39BE742035EB4A0014B2DE /* bed.mtl in Resources */,
+				EBA597F22035F1B600FEA5B6 /* table.obj in Resources */,
 				7C39BE712035E8E90014B2DE /* brickWall.jpg in Resources */,
+				EBA597EE2035F11A00FEA5B6 /* materials.mtl in Resources */,
 				7C39BE6F2035E74F0014B2DE /* oakfloorBaseColor.png in Resources */,
+				EBA597F32035F1B600FEA5B6 /* table.mtl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
