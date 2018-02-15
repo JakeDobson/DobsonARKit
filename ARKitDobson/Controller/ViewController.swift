@@ -18,8 +18,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		super.viewDidLoad()
 		//set sceneView's frame
 		self.sceneView = ARSCNView(frame: self.view.frame)
-		//label properties
-		setupAlertLabel()
+
 		//add debugging option for sceneView (show x, y , z coords)
 		self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
 		//add subview to scene
@@ -49,39 +48,28 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.session.pause()
 	}
 //MARK: helper funcs
-	func setupAlertLabel() {
-		//setup label properties
-		self.label.frame = CGRect(x: 0,
-								  y: 0,
-								  width: sceneView.frame.size.width,
-								  height: 44)
-		self.label.center = CGPoint(x: label.frame.width/2 + 16, y: label.frame.height/2 + 16)
-		self.label.textAlignment = .left
-		self.label.textColor = UIColor.white
-		self.label.font = UIFont.boldSystemFont(ofSize: 36)
-		self.label.alpha = 0
-		//add label to sceneView as subview
-		self.sceneView.addSubview(self.label)
-	}
+    
+    private func addPortal(ht: ARHitTestResult) {
+        let portalScene = SCNScene(named: "art.scnassets/room.scn")!
+        let portalNode = (portalScene.rootNode.childNode(withName: "portalNode", recursively: true))!
+        
+        portalNode.position = SCNVector3(ht.worldTransform.columns.3.x,ht.worldTransform.columns.3.y,ht.worldTransform.columns.3.z)
+        self.sceneView.scene.rootNode.addChildNode(portalNode)
+    }
+    
+
 	@objc func tapped(recognizer: UIGestureRecognizer) {
 		let scnView = recognizer.view as! ARSCNView
 		let touchLocation = recognizer.location(in: scnView)
 		let hitTestResult = scnView.hitTest(touchLocation, types: .existingPlaneUsingExtent)
 		//if touched on a plane, add object at location of touch
 		if !hitTestResult.isEmpty {
-			guard let hitResult = hitTestResult.first else { return }
-			addVirtualObject(hitResult: hitResult)
+			guard let ht = hitTestResult.first else { return }
+			addPortal(ht: ht)
 		}
 	}
 	
-	private func addVirtualObject(hitResult: ARHitTestResult) {
-		let carScene = SCNScene(named: "regularOldCar.dae")!
-		guard let carNode = carScene.rootNode.childNode(withName: "car", recursively: true) else { return }
-		carNode.position = SCNVector3(hitResult.worldTransform.columns.3.x,
-									  hitResult.worldTransform.columns.3.y + 0.025,
-									  hitResult.worldTransform.columns.3.z)
-		self.sceneView.scene.rootNode.addChildNode(carNode)
-	}
+
 // MARK: - ARSCNViewDelegate
 	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
 		//if no anchor found, don't render anything!
