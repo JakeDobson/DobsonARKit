@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7C39BE6F2035E74F0014B2DE /* oakfloorBaseColor.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C39BE6E2035E74E0014B2DE /* oakfloorBaseColor.png */; };
 		7C39BE712035E8E90014B2DE /* brickWall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7C39BE702035E8E90014B2DE /* brickWall.jpg */; };
+		7C39BE742035EB4A0014B2DE /* bed.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 7C39BE722035EB490014B2DE /* bed.mtl */; };
+		7C39BE752035EB4A0014B2DE /* bed.obj in Resources */ = {isa = PBXBuildFile; fileRef = 7C39BE732035EB490014B2DE /* bed.obj */; };
 		7C67C93B20065F5800F38066 /* tronGrid.png in Resources */ = {isa = PBXBuildFile; fileRef = 7C67C93A20065F5800F38066 /* tronGrid.png */; };
 		7C67C93D2006605400F38066 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C67C93C2006605400F38066 /* Plane.swift */; };
 		7C720FF22007B10000D3589F /* regularOldCar.dae in Resources */ = {isa = PBXBuildFile; fileRef = 7C720FF12007B10000D3589F /* regularOldCar.dae */; };
@@ -26,6 +28,8 @@
 /* Begin PBXFileReference section */
 		7C39BE6E2035E74E0014B2DE /* oakfloorBaseColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oakfloorBaseColor.png; sourceTree = "<group>"; };
 		7C39BE702035E8E90014B2DE /* brickWall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = brickWall.jpg; sourceTree = "<group>"; };
+		7C39BE722035EB490014B2DE /* bed.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bed.mtl; sourceTree = "<group>"; };
+		7C39BE732035EB490014B2DE /* bed.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bed.obj; sourceTree = "<group>"; };
 		7C67C93A20065F5800F38066 /* tronGrid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tronGrid.png; sourceTree = "<group>"; };
 		7C67C93C2006605400F38066 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		7C720FF12007B10000D3589F /* regularOldCar.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = regularOldCar.dae; sourceTree = "<group>"; };
@@ -106,6 +110,8 @@
 				7CC1DA442002E22A002AC1F2 /* Default-568h@2x.png */,
 				EBA597DA2035EA8D00FEA5B6 /* Desk.mtl */,
 				EBA597DB2035EA8E00FEA5B6 /* Desk.obj */,
+				7C39BE722035EB490014B2DE /* bed.mtl */,
+				7C39BE732035EB490014B2DE /* bed.obj */,
 				7C67C93A20065F5800F38066 /* tronGrid.png */,
 				7C720FF12007B10000D3589F /* regularOldCar.dae */,
 				7C39BE6E2035E74E0014B2DE /* oakfloorBaseColor.png */,
@@ -201,12 +207,14 @@
 				7CC1DA372002E0E1002AC1F2 /* LaunchScreen.storyboard in Resources */,
 				7CC1DA342002E0E1002AC1F2 /* Assets.xcassets in Resources */,
 				EBA597DC2035EA8E00FEA5B6 /* Desk.mtl in Resources */,
+				7C39BE752035EB4A0014B2DE /* bed.obj in Resources */,
 				7CC673122003E01A0003F26A /* art.scnassets in Resources */,
 				7CC1DA452002E22A002AC1F2 /* Default-568h@2x.png in Resources */,
 				7C67C93B20065F5800F38066 /* tronGrid.png in Resources */,
 				EBA597DD2035EA8E00FEA5B6 /* Desk.obj in Resources */,
 				7C720FF22007B10000D3589F /* regularOldCar.dae in Resources */,
 				7CC1DA322002E0E1002AC1F2 /* Main.storyboard in Resources */,
+				7C39BE742035EB4A0014B2DE /* bed.mtl in Resources */,
 				7C39BE712035E8E90014B2DE /* brickWall.jpg in Resources */,
 				7C39BE6F2035E74F0014B2DE /* oakfloorBaseColor.png in Resources */,
 			);
