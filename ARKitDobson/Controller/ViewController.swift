@@ -80,7 +80,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 		let sphereNode = SCNNode(geometry: sphere)
 		
 		let textGeo = SCNText(string: text, extrusionDepth: 0)
-		textGeo.alignmentMode = kCAAlignmentCenter
+		textGeo.alignmentMode = convertFromCATextLayerAlignmentMode(CATextLayerAlignmentMode.center)
 		textGeo.firstMaterial?.diffuse.contents = UIColor.orange
 		textGeo.firstMaterial?.specular.contents = UIColor.white
 		textGeo.firstMaterial?.isDoubleSided = true
@@ -133,4 +133,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 	func sessionInterruptionEnded(_ session: ARSession) {
 		// Reset tracking and/or remove existing anchors if consistent tracking is required
 	}
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromCATextLayerAlignmentMode(_ input: CATextLayerAlignmentMode) -> String {
+	return input.rawValue
 }
