@@ -30,19 +30,19 @@ class Car: SCNNode {
     
     func turnRight() {
         print("right")
-        self.physicsBody?.applyTorque(SCNVector4(0,1.0,0,-1.0), asImpulse: false)
+        self.physicsBody?.applyTorque(SCNVector4(0, 1.0, 0, -1.0), asImpulse: false)
     }
     
     func turnLeft() {
 		print("left")
-        self.physicsBody?.applyTorque(SCNVector4(0,1.0,0,1.0), asImpulse: false)
+        self.physicsBody?.applyTorque(SCNVector4(0, 1.0, 0, 1.0), asImpulse: false)
     }
     
     func accelerate() {
 		print("accelerate")
-        let force = simd_make_float4(0, 0, -8, 0)
-        let rotatedForce = simd_mul(self.presentation.simdTransform,force)
-        let vectorForce = SCNVector3(rotatedForce.x,rotatedForce.y,rotatedForce.z)
+        let force = simd_make_float4(0, 0, -2, 0)
+        let rotatedForce = simd_mul(self.presentation.simdTransform, force)
+        let vectorForce = SCNVector3(rotatedForce.x, rotatedForce.y, rotatedForce.z)
         self.physicsBody?.applyForce(vectorForce, asImpulse: false)
     }
 }

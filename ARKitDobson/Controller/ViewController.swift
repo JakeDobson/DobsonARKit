@@ -20,7 +20,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sceneView = ARSCNView(frame: self.view.frame)
-        self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints,ARSCNDebugOptions.showWorldOrigin]
+        self.sceneView.debugOptions = [SCNDebugOptions.showFeaturePoints,SCNDebugOptions.showWorldOrigin]
         self.view.addSubview(sceneView)
         // Set the view's delegate
         sceneView.delegate = self
