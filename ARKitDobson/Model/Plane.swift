@@ -24,7 +24,8 @@ class Plane: SCNNode {
         planeGeometry = SCNPlane(width: CGFloat(self.anchor.extent.x), height: CGFloat(self.anchor.extent.z))
         
         let material = SCNMaterial()
-        material.diffuse.contents = UIImage(named: "tronGrid.png")
+//        material.diffuse.contents = UIImage(named: "tronGrid.png")
+		material.diffuse.contents = UIColor.clear
         planeGeometry.firstMaterial = material
         
         let planeNode = SCNNode(geometry: planeGeometry)

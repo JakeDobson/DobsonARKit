@@ -21,11 +21,13 @@
 		7CC1DA372002E0E1002AC1F2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CC1DA352002E0E1002AC1F2 /* LaunchScreen.storyboard */; };
 		7CC1DA452002E22A002AC1F2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CC1DA442002E22A002AC1F2 /* Default-568h@2x.png */; };
 		7CC673122003E01A0003F26A /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CC673112003E01A0003F26A /* art.scnassets */; };
+		D96082AC5694BA00D55756F5 /* Pods_ARKitDobson.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEDD88F11878A5FBBFA1FFD /* Pods_ARKitDobson.framework */; };
 		EBA597F22035F1B600FEA5B6 /* table.obj in Resources */ = {isa = PBXBuildFile; fileRef = EBA597F02035F1B600FEA5B6 /* table.obj */; };
 		EBA597F32035F1B600FEA5B6 /* table.mtl in Resources */ = {isa = PBXBuildFile; fileRef = EBA597F12035F1B600FEA5B6 /* table.mtl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2241CBF979BFA637EBB56378 /* Pods-ARKitDobson.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARKitDobson.release.xcconfig"; path = "Target Support Files/Pods-ARKitDobson/Pods-ARKitDobson.release.xcconfig"; sourceTree = "<group>"; };
 		7C39BE6E2035E74E0014B2DE /* oakfloorBaseColor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oakfloorBaseColor.png; sourceTree = "<group>"; };
 		7C39BE702035E8E90014B2DE /* brickWall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = brickWall.jpg; sourceTree = "<group>"; };
 		7C39BE722035EB490014B2DE /* bed.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bed.mtl; sourceTree = "<group>"; };
@@ -42,6 +44,8 @@
 		7CC1DA382002E0E1002AC1F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CC1DA442002E22A002AC1F2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7CC673112003E01A0003F26A /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		C728FACFCE33A3F19EE12A64 /* Pods-ARKitDobson.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ARKitDobson.debug.xcconfig"; path = "Target Support Files/Pods-ARKitDobson/Pods-ARKitDobson.debug.xcconfig"; sourceTree = "<group>"; };
+		DDEDD88F11878A5FBBFA1FFD /* Pods_ARKitDobson.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARKitDobson.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBA597F02035F1B600FEA5B6 /* table.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = table.obj; sourceTree = "<group>"; };
 		EBA597F12035F1B600FEA5B6 /* table.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = table.mtl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,12 +55,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D96082AC5694BA00D55756F5 /* Pods_ARKitDobson.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08110A24C3F2B8A8FE1A0202 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C728FACFCE33A3F19EE12A64 /* Pods-ARKitDobson.debug.xcconfig */,
+				2241CBF979BFA637EBB56378 /* Pods-ARKitDobson.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		34056D21FB313FD302F8726D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DDEDD88F11878A5FBBFA1FFD /* Pods_ARKitDobson.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7C67C93E2006612F00F38066 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +93,8 @@
 			children = (
 				7CC1DA292002E0E1002AC1F2 /* ARKitDobson */,
 				7CC1DA282002E0E1002AC1F2 /* Products */,
+				08110A24C3F2B8A8FE1A0202 /* Pods */,
+				34056D21FB313FD302F8726D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,9 +177,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7CC1DA3B2002E0E1002AC1F2 /* Build configuration list for PBXNativeTarget "ARKitDobson" */;
 			buildPhases = (
+				92185CC3A72263D234994BFE /* [CP] Check Pods Manifest.lock */,
 				7CC1DA232002E0E1002AC1F2 /* Sources */,
 				7CC1DA242002E0E1002AC1F2 /* Frameworks */,
 				7CC1DA252002E0E1002AC1F2 /* Resources */,
+				890446799A1709EAF791AC8B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -177,6 +204,7 @@
 				TargetAttributes = {
 					7CC1DA262002E0E1002AC1F2 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -221,6 +249,55 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		890446799A1709EAF791AC8B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ARKitDobson/Pods-ARKitDobson-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxSceneKit/MapboxSceneKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxMobileEvents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxSceneKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ARKitDobson/Pods-ARKitDobson-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		92185CC3A72263D234994BFE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ARKitDobson-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7CC1DA232002E0E1002AC1F2 /* Sources */ = {
@@ -364,32 +441,34 @@
 		};
 		7CC1DA3C2002E0E1002AC1F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C728FACFCE33A3F19EE12A64 /* Pods-ARKitDobson.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HYPCVH7NE6;
+				DEVELOPMENT_TEAM = R3W67YCVBM;
 				INFOPLIST_FILE = "$(SRCROOT)/ARKitDobson/Utilities/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JacobDobson.ARKitDobson;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		7CC1DA3D2002E0E1002AC1F2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2241CBF979BFA637EBB56378 /* Pods-ARKitDobson.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HYPCVH7NE6;
+				DEVELOPMENT_TEAM = R3W67YCVBM;
 				INFOPLIST_FILE = "$(SRCROOT)/ARKitDobson/Utilities/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JacobDobson.ARKitDobson;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
